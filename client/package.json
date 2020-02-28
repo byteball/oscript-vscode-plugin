@@ -1,0 +1,12 @@
+{
+    "name": "oscript-vscode-plugin-language-client",
+    "version": "0.0.1",
+    "license": "MIT",
+    "engines": {
+        "vscode": "^1.41.0"
+    },
+    "dependencies": {
+        "lodash": "^4.17.15",
+        "vscode-languageclient": "^5.2.1"
+    }
+}

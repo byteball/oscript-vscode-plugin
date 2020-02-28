@@ -1,0 +1,76 @@
+{
+	"name": "oscript-vscode-plugin",
+	"description": "VSCode plugin for editing Oscript files and writing Autonomous Agents",
+	"author": "Obyte",
+	"license": "MIT",
+	"version": "0.1.0",
+	"icon": "images/icon.png",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/byteball/oscript-vscode-plugin"
+	},
+	"main": "./client/extension",
+	"activationEvents": [
+			"onLanguage:ojson"
+	],
+	"publisher": "valyakin",
+	"categories": [
+		"Programming Languages"
+	],
+	"keywords": [
+		"oscript", "obyte", "byteball",
+		"autonomous agents", "aa"
+	],
+	"contributes": {
+		"languages": [
+				{
+						"id": "ojson",
+						"aliases": [
+								"ojson",
+								"ojson"
+						],
+						"extensions": [
+								"aa",
+								"oscript"
+						],
+						"configuration": "./client/syntaxes/ojson-language-configuration.json"
+				},
+				{
+						"id": "oscript",
+						"aliases": [
+								"oscript",
+								"oscript"
+						],
+						"configuration": "./client/syntaxes/oscript-language-configuration.json"
+				}
+		],
+		"grammars": [
+				{
+						"language": "ojson",
+						"scopeName": "source.ojson",
+						"path": "./client/syntaxes/ojson.tmLanguage.json"
+				},
+				{
+						"language": "oscript",
+						"scopeName": "source.oscript",
+						"path": "./client/syntaxes/oscript.tmLanguage.json"
+				}
+		]
+	},
+	"engines": {
+		"vscode": "^1.33.0"
+	},
+	"scripts": {
+		"vscode:prepublish": "cd client && yarn && cd .. && yarn",
+		"postinstall": "cd client && yarn && cd ../server && yarn && cd .."
+	},
+	"devDependencies": {
+		"eslint": "^5.16.0",
+		"eslint-config-standard": "^12.0.0",
+		"eslint-plugin-import": "^2.17.3",
+		"eslint-plugin-node": "^9.1.0",
+		"eslint-plugin-promise": "^4.1.1",
+		"eslint-plugin-standard": "^4.0.0"
+	},
+	"dependencies": {}
+}

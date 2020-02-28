@@ -1,0 +1,19 @@
+{
+	"name": "oscript-vscode-plugin-language-client",
+	"version": "1.0.0",
+	"author": "Obyte",
+	"license": "MIT",
+	"engines": {
+		"node": "*"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/byteball/oscript-vscode-plugin"
+	},
+	"dependencies": {
+		"obyte": "^0.1.7",
+		"ocore": "git+https://github.com/byteball/ocore.git#rocks-and-formulas",
+		"vscode-languageserver": "^5.2.1"
+	},
+	"scripts": {}
+}

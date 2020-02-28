@@ -1,0 +1,117 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "ojson",
+	"patterns": [
+		{ "include": "#comments" },
+		{ "include": "#formulas" },
+		{ "include": "#keywords" },
+		{ "include": "#strings" },
+		{ "include": "#numbers" }
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [
+				{
+					"name": "constant.character.escape",
+					"match": "\\b(messages|bounce_fees|app|data|payload|asset|outputs|address|amount|cases|if|init|state|base|cap|is_private|is_transferrable|auto_destroy|fixed_denominations|issued_by_definer_only|cosigned_by_definer|spender_attested|issue_condition|transfer_condition|attestors|denominations|base_aa|params)\\b"
+				},
+				{
+					"name": "constant.character.escape",
+					"match": "\\b(autonomous|agent|base|data|payment|data_feed|profile|text|definition|asset_attestors|attestation|state|definition_template|poll|vote|asset)\\b"
+				},
+				{
+					"name": "keyword.oscript",
+					"match": "\\b(true|false)\\b"
+				}
+			]
+		},
+		"comments": {
+			"patterns": [
+				{
+					"name": "comment.ojson",
+					"match": "//.*$"
+				},
+				{
+					"name": "comment.ojson",
+					"begin": "/\\*",
+					"end": "\\*/"
+				}
+			]
+		},
+		"strings": {
+			"patterns": [
+				{
+					"name": "support.constant.color.oscript",
+					"begin": "'",
+					"end": "'"
+				},
+				{
+					"name": "support.constant.color.oscript",
+					"begin": "`",
+					"end": "`"
+				},
+				{
+					"name": "support.constant.color.oscript",
+					"begin": "\"",
+					"end": "\""
+				}
+			]
+		},
+		"formulas": {
+			"patterns": [
+				{
+					"begin": "\"{",
+					"beginCaptures": {
+						"0": { "name": "constant.character.escape.oscript" }
+					},
+					"end": "}\"",
+					"endCaptures": {
+						"0": { "name": "constant.character.escape.oscript" }
+					},
+					"patterns": [
+						{ "include": "source.oscript"}
+					]
+				},
+				{
+					"begin": "`{",
+					"beginCaptures": {
+						"0": { "name": "constant.character.escape.oscript" }
+					},
+					"end": "}`",
+					"endCaptures": {
+						"0": { "name": "constant.character.escape.oscript" }
+					},
+					"patterns": [
+						{ "include": "source.oscript"}
+					]
+				},
+				{
+					"begin": "'{",
+					"beginCaptures": {
+						"0": { "name": "constant.character.escape.oscript" }
+					},
+					"end": "}'",
+					"endCaptures": {
+						"0": { "name": "constant.character.escape.oscript" }
+					},
+					"patterns": [
+						{ "include": "source.oscript"}
+					]
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"name": "constant.numeric.ojson",
+					"match": "\\d+([eE][-+]?\\d+)?"
+				},
+				{
+					"name": "constant.numeric.ojson",
+					"match": "\\d*\\.\\d+([eE][-+]?\\d+)?"
+				}
+			]
+		}
+	},
+	"scopeName": "source.ojson"
+}
