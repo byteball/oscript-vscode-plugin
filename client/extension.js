@@ -5,8 +5,10 @@ const {
 } = require('vscode-languageclient')
 const vscode = require('vscode')
 const ojson = require('./languages/ojson')
+const deploymentViewFactory = require('./deploymentView')
 
-let client
+let client, statusBarItem
+const validations = {}
 
 function activate (context) {
 	vscode.languages.registerCompletionItemProvider('ojson', {
@@ -21,6 +23,10 @@ function activate (context) {
 			return ojson.hovers(model, position)
 		}
 	})
+
+	statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left)
+	statusBarItem.command = 'oscript-vscode-plugin.deployAa'
+	statusBarItem.tooltip = 'Click to deploy Autonomous Agent'
 
 	let serverModule = context.asAbsolutePath(
 		path.join('server', 'server.js')
@@ -51,10 +57,79 @@ function activate (context) {
 		clientOptions
 	)
 
-	// Start the client. This will also launch the server
 	client.start()
+	client.onReady().then(() => {
+		client.onRequest('aa-validation-success', aaValidationSuccess)
+		client.onRequest('aa-validation-error', aaValidationError)
+		client.onRequest('aa-validation-inprogress', aaValidationInProgress)
+		client.onRequest('show-deployment-view', showDeploymentView)
+
+		const command = vscode.commands.registerCommand('oscript-vscode-plugin.deployAa', () => {
+			if (vscode.window.activeTextEditor) {
+				const uri = vscode.window.activeTextEditor.document.uri.toString()
+				client.sendRequest('deploy-aa', { uri })
+			}
+		})
+		context.subscriptions.push(command)
+	})
+
+	vscode.window.onDidChangeActiveTextEditor((editor) => {
+		if (editor) {
+			const uri = editor.document.uri.toString()
+			if (validations[uri]) {
+				statusBarItem.text = validations[uri]
+				statusBarItem.show()
+			} else {
+				statusBarItem.hide()
+			}
+		}
+	})
 }
-exports.activate = activate
+
+function aaValidationSuccess ({ complexity, countOps }) {
+	const text = `$(info) AA validated, complexity = ${complexity}, ops = ${countOps}`
+	updateValidations(text)
+	statusBarItem.text = text
+	statusBarItem.show()
+}
+
+// eslint-disable-next-line handle-callback-err
+function aaValidationError ({ error }) {
+	updateValidations()
+	statusBarItem.hide()
+}
+
+function aaValidationInProgress () {
+	updateValidations()
+	statusBarItem.hide()
+}
+
+function updateValidations (value) {
+	if (vscode.window.activeTextEditor) {
+		const uri = vscode.window.activeTextEditor.document.uri.toString()
+		validations[uri] = value
+	}
+}
+
+async function showDeploymentView ({ error, deploymentUri }) {
+	if (error) {
+		vscode.window.showErrorMessage(`Can not deploy agent: ${error}`)
+	} else {
+		const panel = vscode.window.createWebviewPanel(
+			'aaDeployment',
+			'AA Deployment',
+			vscode.ViewColumn.One,
+			{}
+		)
+
+		try {
+			const view = await deploymentViewFactory(deploymentUri)
+			panel.webview.html = view
+		} catch (e) {
+			vscode.window.showErrorMessage(`Can not display agent deployment window: ${e.message || e}`)
+		}
+	}
+}
 
 function deactivate () {
 	if (!client) {
@@ -63,6 +138,7 @@ function deactivate () {
 	return client.stop()
 }
 
+exports.activate = activate
 module.exports = {
 	activate,
 	deactivate

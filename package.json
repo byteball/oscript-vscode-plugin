@@ -3,7 +3,7 @@
 	"description": "VSCode plugin for editing Oscript files and writing Autonomous Agents",
 	"author": "Obyte",
 	"license": "MIT",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"icon": "images/icon.png",
 	"repository": {
 		"type": "git",
@@ -11,50 +11,81 @@
 	},
 	"main": "./client/extension",
 	"activationEvents": [
-			"onLanguage:ojson"
+		"onLanguage:ojson"
 	],
 	"publisher": "valyakin",
 	"categories": [
 		"Programming Languages"
 	],
 	"keywords": [
-		"oscript", "obyte", "byteball",
-		"autonomous agents", "aa"
+		"oscript",
+		"obyte",
+		"byteball",
+		"autonomous agents",
+		"aa"
 	],
 	"contributes": {
-		"languages": [
-				{
-						"id": "ojson",
-						"aliases": [
-								"ojson",
-								"ojson"
-						],
-						"extensions": [
-								"aa",
-								"oscript"
-						],
-						"configuration": "./client/syntaxes/ojson-language-configuration.json"
-				},
-				{
-						"id": "oscript",
-						"aliases": [
-								"oscript",
-								"oscript"
-						],
-						"configuration": "./client/syntaxes/oscript-language-configuration.json"
+		"configuration": [
+			{
+				"title": "Oscript",
+				"properties": {
+					"oscript.hub": {
+						"type": "string",
+						"default": "wss://obyte.org/bb",
+						"description": "Obyte hub url"
+					},
+					"oscript.testnet": {
+						"type": "boolean",
+						"default": false,
+						"description": "bTestnet flag for ocore"
+					},
+					"oscript.deploymentBackend": {
+						"type": "string",
+						"default": "https://oscript.org/api/v1",
+						"description": "Agent deployment backend uri"
+					}
 				}
+			}
+		],
+		"commands": [
+			{
+				"command": "oscript-vscode-plugin.deployAa",
+				"title": "Oscript: Deploy Autonomous Agent"
+			}
+		],
+		"languages": [
+			{
+				"id": "ojson",
+				"aliases": [
+					"ojson",
+					"ojson"
+				],
+				"extensions": [
+					"aa",
+					"oscript"
+				],
+				"configuration": "./client/syntaxes/ojson-language-configuration.json"
+			},
+			{
+				"id": "oscript",
+				"aliases": [
+					"oscript",
+					"oscript"
+				],
+				"configuration": "./client/syntaxes/oscript-language-configuration.json"
+			}
 		],
 		"grammars": [
-				{
-						"language": "ojson",
-						"scopeName": "source.ojson",
-						"path": "./client/syntaxes/ojson.tmLanguage.json"
-				},
-				{
-						"language": "oscript",
-						"scopeName": "source.oscript",
-						"path": "./client/syntaxes/oscript.tmLanguage.json"
-				}
+			{
+				"language": "ojson",
+				"scopeName": "source.ojson",
+				"path": "./client/syntaxes/ojson.tmLanguage.json"
+			},
+			{
+				"language": "oscript",
+				"scopeName": "source.oscript",
+				"path": "./client/syntaxes/oscript.tmLanguage.json"
+			}
 		]
 	},
 	"engines": {
@@ -72,5 +103,8 @@
 		"eslint-plugin-promise": "^4.1.1",
 		"eslint-plugin-standard": "^4.0.0"
 	},
-	"dependencies": {}
+	"dependencies": {
+		"axios": "^0.19.2",
+		"qrcode": "^1.4.4"
+	}
 }

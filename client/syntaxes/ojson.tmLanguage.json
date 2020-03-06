@@ -13,7 +13,7 @@
 			"patterns": [
 				{
 					"name": "constant.character.escape",
-					"match": "\\b(messages|bounce_fees|app|data|payload|asset|outputs|address|amount|cases|if|init|state|base|cap|is_private|is_transferrable|auto_destroy|fixed_denominations|issued_by_definer_only|cosigned_by_definer|spender_attested|issue_condition|transfer_condition|attestors|denominations|base_aa|params)\\b"
+					"match": "\\b(messages|bounce_fees|app|data|payload|asset|outputs|address|amount|cases|if|init|state|base|cap|is_private|is_transferrable|auto_destroy|fixed_denominations|issued_by_definer_only|cosigned_by_definer|spender_attested|issue_condition|transfer_condition|attestors|denominations|base_aa|params|doc_url)\\b"
 				},
 				{
 					"name": "constant.character.escape",

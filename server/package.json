@@ -12,7 +12,7 @@
 	},
 	"dependencies": {
 		"obyte": "^0.1.7",
-		"ocore": "git+https://github.com/byteball/ocore.git#rocks-and-formulas",
+		"ocore": "git+https://github.com/byteball/ocore.git",
 		"vscode-languageserver": "^5.2.1"
 	},
 	"scripts": {}

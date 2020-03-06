@@ -1,5 +1,13 @@
 # Change Log
 
+## v0.2.0
+
+### Features
+1. AA complexity in status bar
+2. AA deployment
+3. Duplication check on AA deployment
+4. Added extension settings for hub and testnet
+
 ## v0.1.0
 
 ### Features

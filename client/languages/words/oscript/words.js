@@ -1424,5 +1424,22 @@ Lowercase name \`otherwise\` is also allowed.
 If \`expr1\` is truthy, its result is returned and \`expr2\` is not evaluated. Otherwise, \`expr2\` is evaluated and its result returned.
 `
 		}
+	},
+	{
+		label: '||',
+		insertText: '||',
+		kind: vscode.CompletionItemKind.Operator,
+		detail: '`||` string concatenation operator',
+		documentation: {
+			value:
+`
+Returns a string that contains the concatenation of two strings.
+
+	\`{
+		$key = 'balance_' || trigger.address
+	}\`
+
+`
+		}
 	}
 ]

@@ -37,7 +37,7 @@ module.exports = {
 		}
 	},
 	hovers: (model, position) => {
-		const range = model.getWordRangeAtPosition(position)
+		const range = model.getWordRangeAtPosition(position, /(\|\||\w+)/)
 		if (!range) return
 		const line = model.lineAt(range.start.line).text
 		const word = model.getText(range)

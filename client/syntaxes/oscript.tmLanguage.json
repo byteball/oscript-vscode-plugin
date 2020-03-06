@@ -19,7 +19,7 @@
 				},
 				{
 					"name": "keyword.control.oscript",
-					"match": "\\b(if|else|return)\\b"
+					"match": "\\b(if|else|return|bounce)\\b"
 				},
 				{
 					"name": "keyword.oscript",
@@ -31,7 +31,7 @@
 				},
 				{
 					"name": "entity.name.function.oscript",
-					"match": "(?<!\\.)\\b(bounce|min|max|sqrt|ln|ceil|floor|round|abs|hypot|is_valid_signed_package|sha256|is_valid_sig|json_parse|json_stringify|number_from_seed|length|is_valid_address|substring|starts_with|ends_with|contains|parse_date|timestamp_to_string|typeof|is_integer|is_valid_amount|is_aa|index_of|array_length|is_array|is_assoc|to_upper|to_lower|exists)\\b"
+					"match": "(?<!\\.)\\b(min|max|sqrt|ln|ceil|floor|round|abs|hypot|is_valid_signed_package|sha256|is_valid_sig|json_parse|json_stringify|number_from_seed|length|is_valid_address|substring|starts_with|ends_with|contains|parse_date|timestamp_to_string|typeof|is_integer|is_valid_amount|is_aa|index_of|array_length|is_array|is_assoc|to_upper|to_lower|exists)\\b"
 				}
 			]
 		},
