@@ -1,5 +1,11 @@
 # Change Log
 
+## v0.2.1
+
+### Features
+1. Open deployment page in Oscript Editor
+2. Agent duplication check command
+
 ## v0.2.0
 
 ### Features

@@ -5,7 +5,6 @@ const {
 } = require('vscode-languageclient')
 const vscode = require('vscode')
 const ojson = require('./languages/ojson')
-const deploymentViewFactory = require('./deploymentView')
 
 let client, statusBarItem
 const validations = {}
@@ -62,15 +61,22 @@ function activate (context) {
 		client.onRequest('aa-validation-success', aaValidationSuccess)
 		client.onRequest('aa-validation-error', aaValidationError)
 		client.onRequest('aa-validation-inprogress', aaValidationInProgress)
-		client.onRequest('show-deployment-view', showDeploymentView)
 
-		const command = vscode.commands.registerCommand('oscript-vscode-plugin.deployAa', () => {
+		const deployCommand = vscode.commands.registerCommand('oscript-vscode-plugin.deployAa', () => {
 			if (vscode.window.activeTextEditor) {
 				const uri = vscode.window.activeTextEditor.document.uri.toString()
 				client.sendRequest('deploy-aa', { uri })
 			}
 		})
-		context.subscriptions.push(command)
+		context.subscriptions.push(deployCommand)
+
+		const checkDuplicateCommand = vscode.commands.registerCommand('oscript-vscode-plugin.checkDuplicateAa', () => {
+			if (vscode.window.activeTextEditor) {
+				const uri = vscode.window.activeTextEditor.document.uri.toString()
+				client.sendRequest('check-duplicate', { uri })
+			}
+		})
+		context.subscriptions.push(checkDuplicateCommand)
 	})
 
 	vscode.window.onDidChangeActiveTextEditor((editor) => {
@@ -108,26 +114,6 @@ function updateValidations (value) {
 	if (vscode.window.activeTextEditor) {
 		const uri = vscode.window.activeTextEditor.document.uri.toString()
 		validations[uri] = value
-	}
-}
-
-async function showDeploymentView ({ error, deploymentUri }) {
-	if (error) {
-		vscode.window.showErrorMessage(`Can not deploy agent: ${error}`)
-	} else {
-		const panel = vscode.window.createWebviewPanel(
-			'aaDeployment',
-			'AA Deployment',
-			vscode.ViewColumn.One,
-			{}
-		)
-
-		try {
-			const view = await deploymentViewFactory(deploymentUri)
-			panel.webview.html = view
-		} catch (e) {
-			vscode.window.showErrorMessage(`Can not display agent deployment window: ${e.message || e}`)
-		}
 	}
 }
 

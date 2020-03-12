@@ -18,7 +18,8 @@ For this, change extension configuration in the vscode settings:
 
 ```
 Testnet: true
-Deployment Backend: 'https://testnet.oscript.org/api/v1'
+Oscript Editor Backend: 'https://testnet.oscript.org/api/v1'
+Oscript Editor Frontend: 'https://testnet.oscript.org'
 Hub: 'wss://obyte.org/bb-test'
 ```
 

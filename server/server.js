@@ -11,8 +11,9 @@ const obyte = require('obyte')
 const ValidationUtils = require('ocore/validation_utils')
 const aaValidation = require('ocore/aa_validation')
 const parseOjson = require('ocore/formula/parse_ojson')
+const open = require('open')
 
-let constants, objectHash, configuration, deploymentProtocol
+let constants, objectHash, configuration
 
 const duplicateChecks = {}
 const documents = new TextDocuments()
@@ -25,10 +26,10 @@ connection.onInitialized(async () => {
 
 	constants = require('ocore/constants')
 	constants.bTestnet = configuration.testnet
-	deploymentProtocol = constants.bTestnet ? 'obyte-tn' : 'obyte'
 	objectHash = require('ocore/object_hash')
 
 	connection.onRequest('deploy-aa', handleDeployAa)
+	connection.onRequest('check-duplicate', handleCheckDuplicate)
 })
 
 documents.onDidChangeContent(change => {
@@ -103,7 +104,7 @@ function checkDuplicateAgent (ojson) {
 			if (duplicateChecks[address].error) {
 				reject(new Error(duplicateChecks[address].error))
 			} else {
-				resolve()
+				resolve(address)
 			}
 			return
 		}
@@ -134,11 +135,27 @@ function checkDuplicateAgent (ojson) {
 					duplicateChecks[address] = {
 						isDuplicate: false
 					}
-					resolve()
+					resolve(address)
 				}
 			})
 		})
 	})
+}
+
+async function handleCheckDuplicate ({ uri }) {
+	const document = documents.get(uri)
+
+	try {
+		const parsedOjson = await validateTextDocument(document)
+		if (!parsedOjson) {
+			throw new Error('Invalid oscript')
+		}
+
+		const address = await checkDuplicateAgent(parsedOjson)
+		connection.window.showInformationMessage(`Agent is ready for deployment with address ${address}`)
+	} catch (e) {
+		connection.window.showErrorMessage(e.message)
+	}
 }
 
 async function handleDeployAa ({ uri }) {
@@ -152,7 +169,7 @@ async function handleDeployAa ({ uri }) {
 
 		await checkDuplicateAgent(parsedOjson)
 
-		const { data } = await axios.post(`${configuration.deploymentBackend}/link`, document.getText(), {
+		const { data } = await axios.post(`${configuration.oscriptEditorBackend}/link`, document.getText(), {
 			headers: {
 				'Content-Type': 'text/plain'
 			},
@@ -163,15 +180,10 @@ async function handleDeployAa ({ uri }) {
 			throw new Error('Can not generate agent deployment link')
 		}
 
-		connection.sendRequest('show-deployment-view', {
-			error: null,
-			deploymentUri: `${deploymentProtocol}:data?app=definition&definition=${configuration.deploymentBackend}/link/${data.shortcode}`
-		})
+		const link = `${configuration.oscriptEditorFrontnend}/d/${data.shortcode}`
+		open(link)
 	} catch (e) {
-		connection.sendRequest('show-deployment-view', {
-			error: e.message,
-			deploymentUri: null
-		})
+		connection.window.showErrorMessage(e.message)
 	}
 }
 
