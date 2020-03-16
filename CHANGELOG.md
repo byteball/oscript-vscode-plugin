@@ -1,5 +1,10 @@
 # Change Log
 
+## v0.2.2
+
+### Features
+1. Pick network for agent deployment dialog
+
 ## v0.2.1
 
 ### Features

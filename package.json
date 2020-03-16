@@ -3,7 +3,7 @@
 	"description": "VSCode plugin for editing Oscript files and writing Autonomous Agents",
 	"author": "Obyte",
 	"license": "MIT",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"icon": "images/icon.png",
 	"repository": {
 		"type": "git",
@@ -25,33 +25,6 @@
 		"aa"
 	],
 	"contributes": {
-		"configuration": [
-			{
-				"title": "Oscript",
-				"properties": {
-					"oscript.hub": {
-						"type": "string",
-						"default": "wss://obyte.org/bb",
-						"description": "Obyte hub url"
-					},
-					"oscript.testnet": {
-						"type": "boolean",
-						"default": false,
-						"description": "bTestnet flag for ocore"
-					},
-					"oscript.oscriptEditorBackend": {
-						"type": "string",
-						"default": "https://oscript.org/api/v1",
-						"description": "Oscript editor backend uri"
-					},
-					"oscript.oscriptEditorFrontnend": {
-						"type": "string",
-						"default": "https://oscript.org",
-						"description": "Oscript editor uri"
-					}
-				}
-			}
-		],
 		"commands": [
 			{
 				"command": "oscript-vscode-plugin.deployAa",

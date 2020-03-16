@@ -12,8 +12,8 @@ const ValidationUtils = require('ocore/validation_utils')
 const aaValidation = require('ocore/aa_validation')
 const parseOjson = require('ocore/formula/parse_ojson')
 const open = require('open')
-
-let constants, objectHash, configuration
+const constants = require('ocore/constants')
+const objectHash = require('ocore/object_hash')
 
 const duplicateChecks = {}
 const documents = new TextDocuments()
@@ -21,16 +21,7 @@ const connection = createConnection(ProposedFeatures.all)
 
 connection.onInitialize((params) => {})
 
-connection.onInitialized(async () => {
-	configuration = await connection.workspace.getConfiguration('oscript')
-
-	constants = require('ocore/constants')
-	constants.bTestnet = configuration.testnet
-	objectHash = require('ocore/object_hash')
-
-	connection.onRequest('deploy-aa', handleDeployAa)
-	connection.onRequest('check-duplicate', handleCheckDuplicate)
-})
+connection.onInitialized(async () => {})
 
 documents.onDidChangeContent(change => {
 	validateTextDocument(change.document)
@@ -97,7 +88,7 @@ async function validateTextDocument (textDocument) {
 	return parsedOjson
 }
 
-function checkDuplicateAgent (ojson) {
+function checkDuplicateAgent (ojson, config) {
 	return new Promise((resolve, reject) => {
 		const address = objectHash.getChash160(ojson)
 		if (address in duplicateChecks) {
@@ -111,12 +102,12 @@ function checkDuplicateAgent (ojson) {
 
 		constants.bTestnet = true
 		const client = new obyte.Client(
-			configuration.hub,
-			{ testnet: constants.bTestnet }
+			config.hub,
+			{ testnet: config.testnet }
 		)
 
 		client.client.ws.addEventListener('error', (e) => {
-			reject(new Error(`Unable to connect to ${configuration.hub}`))
+			reject(new Error(`Unable to connect to ${config.hub}`))
 		})
 
 		client.client.ws.addEventListener('open', (e) => {
@@ -142,7 +133,7 @@ function checkDuplicateAgent (ojson) {
 	})
 }
 
-async function handleCheckDuplicate ({ uri }) {
+async function handleCheckDuplicate ({ uri, config }) {
 	const document = documents.get(uri)
 
 	try {
@@ -151,14 +142,14 @@ async function handleCheckDuplicate ({ uri }) {
 			throw new Error('Invalid oscript')
 		}
 
-		const address = await checkDuplicateAgent(parsedOjson)
+		const address = await checkDuplicateAgent(parsedOjson, config)
 		connection.window.showInformationMessage(`Agent is ready for deployment with address ${address}`)
 	} catch (e) {
 		connection.window.showErrorMessage(e.message)
 	}
 }
 
-async function handleDeployAa ({ uri }) {
+async function handleDeployAa ({ uri, config }) {
 	const document = documents.get(uri)
 
 	try {
@@ -167,9 +158,9 @@ async function handleDeployAa ({ uri }) {
 			throw new Error('Invalid oscript')
 		}
 
-		await checkDuplicateAgent(parsedOjson)
+		await checkDuplicateAgent(parsedOjson, config)
 
-		const { data } = await axios.post(`${configuration.oscriptEditorBackend}/link`, document.getText(), {
+		const { data } = await axios.post(`${config.backend}/link`, document.getText(), {
 			headers: {
 				'Content-Type': 'text/plain'
 			},
@@ -180,7 +171,7 @@ async function handleDeployAa ({ uri }) {
 			throw new Error('Can not generate agent deployment link')
 		}
 
-		const link = `${configuration.oscriptEditorFrontnend}/d/${data.shortcode}`
+		const link = `${config.frontnend}/d/${data.shortcode}`
 		open(link)
 	} catch (e) {
 		connection.window.showErrorMessage(e.message)
@@ -189,3 +180,6 @@ async function handleDeployAa ({ uri }) {
 
 documents.listen(connection)
 connection.listen()
+
+connection.onRequest('deploy-aa', handleDeployAa)
+connection.onRequest('check-duplicate', handleCheckDuplicate)

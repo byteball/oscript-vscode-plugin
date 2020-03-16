@@ -5,6 +5,7 @@ const {
 } = require('vscode-languageclient')
 const vscode = require('vscode')
 const ojson = require('./languages/ojson')
+const config = require('../config/default.json')
 
 let client, statusBarItem
 const validations = {}
@@ -62,18 +63,24 @@ function activate (context) {
 		client.onRequest('aa-validation-error', aaValidationError)
 		client.onRequest('aa-validation-inprogress', aaValidationInProgress)
 
-		const deployCommand = vscode.commands.registerCommand('oscript-vscode-plugin.deployAa', () => {
-			if (vscode.window.activeTextEditor) {
-				const uri = vscode.window.activeTextEditor.document.uri.toString()
-				client.sendRequest('deploy-aa', { uri })
+		const deployCommand = vscode.commands.registerCommand('oscript-vscode-plugin.deployAa', async () => {
+			const network = await vscode.window.showInformationMessage('Choose a network for deployment', 'testnet', 'mainnet' /* 'local' */)
+			if (network) {
+				if (vscode.window.activeTextEditor) {
+					const uri = vscode.window.activeTextEditor.document.uri.toString()
+					client.sendRequest('deploy-aa', { uri, config: config.deployment[network] })
+				}
 			}
 		})
 		context.subscriptions.push(deployCommand)
 
-		const checkDuplicateCommand = vscode.commands.registerCommand('oscript-vscode-plugin.checkDuplicateAa', () => {
-			if (vscode.window.activeTextEditor) {
-				const uri = vscode.window.activeTextEditor.document.uri.toString()
-				client.sendRequest('check-duplicate', { uri })
+		const checkDuplicateCommand = vscode.commands.registerCommand('oscript-vscode-plugin.checkDuplicateAa', async () => {
+			const network = await vscode.window.showInformationMessage('Choose a network for duplication check', 'testnet', 'mainnet', 'local')
+			if (network) {
+				if (vscode.window.activeTextEditor) {
+					const uri = vscode.window.activeTextEditor.document.uri.toString()
+					client.sendRequest('check-duplicate', { uri, config: config.deployment[network] })
+				}
 			}
 		})
 		context.subscriptions.push(checkDuplicateCommand)
