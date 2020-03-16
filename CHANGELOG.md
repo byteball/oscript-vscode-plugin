@@ -1,5 +1,10 @@
 # Change Log
 
+## v0.2.3
+
+### Fixes
+1. Fix duplicate check showing agent is not deploye although it is
+
 ## v0.2.2
 
 ### Features

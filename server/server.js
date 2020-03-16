@@ -11,9 +11,8 @@ const obyte = require('obyte')
 const ValidationUtils = require('ocore/validation_utils')
 const aaValidation = require('ocore/aa_validation')
 const parseOjson = require('ocore/formula/parse_ojson')
-const open = require('open')
-const constants = require('ocore/constants')
 const objectHash = require('ocore/object_hash')
+const open = require('open')
 
 const duplicateChecks = {}
 const documents = new TextDocuments()
@@ -100,7 +99,6 @@ function checkDuplicateAgent (ojson, config) {
 			return
 		}
 
-		constants.bTestnet = true
 		const client = new obyte.Client(
 			config.hub,
 			{ testnet: config.testnet }
@@ -123,9 +121,6 @@ function checkDuplicateAgent (ojson, config) {
 					}
 					reject(new Error(msg))
 				} else {
-					duplicateChecks[address] = {
-						isDuplicate: false
-					}
 					resolve(address)
 				}
 			})

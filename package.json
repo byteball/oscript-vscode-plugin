@@ -3,7 +3,7 @@
 	"description": "VSCode plugin for editing Oscript files and writing Autonomous Agents",
 	"author": "Obyte",
 	"license": "MIT",
-	"version": "0.2.2",
+	"version": "0.2.3",
 	"icon": "images/icon.png",
 	"repository": {
 		"type": "git",
