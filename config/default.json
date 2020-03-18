@@ -1,0 +1,22 @@
+{
+	"deployment": {
+		"mainnet": {
+			"testnet": false,
+			"hub": "wss://obyte.org/bb",
+			"frontnend": "https://oscript.org",
+			"backend": "https://oscript.org/api/v1"
+		},
+		"testnet": {
+			"testnet": true,
+			"hub": "wss://obyte.org/bb-test",
+			"frontnend": "https://testnet.oscript.org",
+			"backend": "https://testnet.oscript.org/api/v1"
+		},
+		"local": {
+			"testnet": true,
+			"hub": "wss://obyte.org/bb-test",
+			"frontnend": "http://localhost:8080",
+			"backend": "http://localhost:3000/api/v1"
+		}
+	}
+}
