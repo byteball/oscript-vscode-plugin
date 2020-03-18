@@ -1,6 +1,7 @@
 {
 	"name": "oscript-vscode-plugin",
-	"description": "VSCode plugin for editing Oscript files and writing Autonomous Agents",
+	"displayName": "Oscript",
+	"description": "Oscript support for writing Autonomous Agents in VS Code",
 	"author": "Obyte",
 	"license": "MIT",
 	"version": "0.2.3",
@@ -13,7 +14,7 @@
 	"activationEvents": [
 		"onLanguage:ojson"
 	],
-	"publisher": "valyakin",
+	"publisher": "obyte",
 	"categories": [
 		"Programming Languages"
 	],

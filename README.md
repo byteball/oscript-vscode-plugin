@@ -1,6 +1,6 @@
 # Oscript extension for Visual Studio Code
 
-Write and validate Ojson Autonomous Agent definitions for Obyte network
+Write and validate Autonomous Agents in Oscript language. AAs are programs that automate the movement of funds on Obyte network. They allow to create various DeFi applications.
 
 ## Features
 * Syntax highlighting
