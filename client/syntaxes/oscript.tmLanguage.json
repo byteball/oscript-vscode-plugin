@@ -3,49 +3,27 @@
 	"name": "oscript",
 	"patterns": [
 		{ "include": "#comments" },
+		{ "include": "#formulas" },
 		{ "include": "#keywords" },
-		{ "include": "#operators" },
-		{ "include": "#trigger" },
 		{ "include": "#strings" },
-		{ "include": "#variables" },
 		{ "include": "#numbers" }
 	],
 	"repository": {
 		"keywords": {
 			"patterns": [
 				{
+					"name": "constant.character.escape",
+					"match": "\\b(messages|bounce_fees|app|data|payload|asset|outputs|address|amount|cases|if|init|state|base|cap|is_private|is_transferrable|auto_destroy|fixed_denominations|issued_by_definer_only|cosigned_by_definer|spender_attested|issue_condition|transfer_condition|attestors|denominations|base_aa|params|doc_url)\\b"
+				},
+				{
+					"name": "constant.character.escape",
+					"match": "\\b(autonomous|agent|base|data|payment|data_feed|profile|text|definition|asset_attestors|attestation|state|definition_template|poll|vote|asset)\\b"
+				},
+				{
 					"name": "keyword.oscript",
 					"match": "\\b(true|false)\\b"
-				},
-				{
-					"name": "keyword.control.oscript",
-					"match": "\\b(if|else|return|bounce)\\b"
-				},
-				{
-					"name": "keyword.oscript",
-					"match": "\\b(params|trigger\\.data|trigger\\.output|trigger\\.address|trigger\\.unit|trigger\\.initial_address)\\b"
-				},
-				{
-					"name": "keyword.oscript",
-					"match": "(?<!\\.)\\b(var|response|response_unit|timestamp|mci|mc_unit|this_address|base|data_feed|in_data_feed|attestation|balance|address|amount|asset|attestors|ifseveral|ifnone|type|oracles|feed_name|min_mci|feed_value|what|pi|e|storage_size|unit|number_of_responses|vrf_verify|definition)\\b"
-				},
-				{
-					"name": "entity.name.function.oscript",
-					"match": "(?<!\\.)\\b(min|max|sqrt|ln|ceil|floor|round|abs|hypot|is_valid_signed_package|sha256|is_valid_sig|json_parse|json_stringify|number_from_seed|length|is_valid_address|substring|starts_with|ends_with|contains|parse_date|timestamp_to_string|typeof|is_integer|is_valid_amount|is_aa|index_of|array_length|is_array|is_assoc|to_upper|to_lower|exists)\\b"
 				}
 			]
-		},
-		"trigger": {
-			"patterns": [
-				{
-					"name": "variable.oscript",
-					"match": "(?<=trigger\\.data)(\\.\\w+)+"
-				}
-			]
-		},
-		"operators": {
-			"name": "keyword.operator.oscript",
-			"match": "((OR|NOT|AND|OTHERWISE|or|and|not|otherwise|!=|!!|==|<=|>=|\\+=|-=|\\*=|%=|/=|(\\|\\|=)|(\\|\\|))|[=><?:+*/%^!-])"
 		},
 		"comments": {
 			"patterns": [
@@ -63,22 +41,62 @@
 		"strings": {
 			"patterns": [
 				{
-					"name": "string.quoted.oscript",
+					"name": "support.constant.color.oscript",
 					"begin": "'",
 					"end": "'"
 				},
 				{
-					"name": "string.quoted.oscript",
+					"name": "support.constant.color.oscript",
+					"begin": "`",
+					"end": "`"
+				},
+				{
+					"name": "support.constant.color.oscript",
 					"begin": "\"",
 					"end": "\""
 				}
 			]
 		},
-		"variables": {
+		"formulas": {
 			"patterns": [
 				{
-					"name": "entity.name.type.oscript",
-					"match": "\\$\\w+(\\.\\w+)*"
+					"begin": "\"{",
+					"beginCaptures": {
+						"0": { "name": "constant.character.escape.oscript" }
+					},
+					"end": "}\"",
+					"endCaptures": {
+						"0": { "name": "constant.character.escape.oscript" }
+					},
+					"patterns": [
+						{ "include": "source.oscript.formula"}
+					]
+				},
+				{
+					"begin": "`{",
+					"beginCaptures": {
+						"0": { "name": "constant.character.escape.oscript" }
+					},
+					"end": "}`",
+					"endCaptures": {
+						"0": { "name": "constant.character.escape.oscript" }
+					},
+					"patterns": [
+						{ "include": "source.oscript.formula"}
+					]
+				},
+				{
+					"begin": "'{",
+					"beginCaptures": {
+						"0": { "name": "constant.character.escape.oscript" }
+					},
+					"end": "}'",
+					"endCaptures": {
+						"0": { "name": "constant.character.escape.oscript" }
+					},
+					"patterns": [
+						{ "include": "source.oscript.formula"}
+					]
 				}
 			]
 		},
@@ -86,11 +104,11 @@
 			"patterns": [
 				{
 					"name": "constant.numeric.oscript",
-					"match": "\\b\\d+([eE][-+]?\\d+)?\\b"
+					"match": "\\d+([eE][-+]?\\d+)?"
 				},
 				{
 					"name": "constant.numeric.oscript",
-					"match": "\\b\\d*\\.\\d+([eE][-+]?\\d+)?\\b"
+					"match": "\\d*\\.\\d+([eE][-+]?\\d+)?"
 				}
 			]
 		}

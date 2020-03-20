@@ -4,7 +4,7 @@
 	"description": "Oscript support for writing Autonomous Agents in VS Code",
 	"author": "Obyte",
 	"license": "MIT",
-	"version": "0.2.3",
+	"version": "0.2.4",
 	"icon": "images/icon.png",
 	"repository": {
 		"type": "git",
@@ -12,7 +12,7 @@
 	},
 	"main": "./client/extension",
 	"activationEvents": [
-		"onLanguage:ojson"
+		"onLanguage:oscript"
 	],
 	"publisher": "obyte",
 	"categories": [
@@ -38,36 +38,37 @@
 		],
 		"languages": [
 			{
-				"id": "ojson",
-				"aliases": [
-					"ojson",
-					"ojson"
-				],
-				"extensions": [
-					"aa",
-					"oscript"
-				],
-				"configuration": "./client/syntaxes/ojson-language-configuration.json"
-			},
-			{
 				"id": "oscript",
 				"aliases": [
 					"oscript",
-					"oscript"
+					"ojson"
+				],
+				"extensions": [
+					"oscript",
+					"aa",
+					"ojson"
 				],
 				"configuration": "./client/syntaxes/oscript-language-configuration.json"
+			},
+			{
+				"id": "oscript.formula",
+				"aliases": [
+					"formula",
+					"oscript.formula"
+				],
+				"configuration": "./client/syntaxes/formula-language-configuration.json"
 			}
 		],
 		"grammars": [
 			{
-				"language": "ojson",
-				"scopeName": "source.ojson",
-				"path": "./client/syntaxes/ojson.tmLanguage.json"
-			},
-			{
 				"language": "oscript",
 				"scopeName": "source.oscript",
 				"path": "./client/syntaxes/oscript.tmLanguage.json"
+			},
+			{
+				"language": "oscript.formula",
+				"scopeName": "source.oscript.formula",
+				"path": "./client/syntaxes/formula.tmLanguage.json"
 			}
 		]
 	},
