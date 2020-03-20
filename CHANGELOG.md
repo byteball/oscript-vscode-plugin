@@ -1,5 +1,11 @@
 # Change Log
 
+## v0.2.4
+
+### Fixes
+1. Fix escaped quotes in formula
+2. .ojson is valid extension for AA
+
 ## v0.2.3
 
 ### Fixes

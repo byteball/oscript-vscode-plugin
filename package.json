@@ -3,7 +3,7 @@
 	"description": "VSCode plugin for editing Oscript files and writing Autonomous Agents",
 	"author": "Obyte",
 	"license": "MIT",
-	"version": "0.2.3",
+	"version": "0.2.4",
 	"icon": "images/icon.png",
 	"repository": {
 		"type": "git",
@@ -44,6 +44,7 @@
 				],
 				"extensions": [
 					"aa",
+					"ojson",
 					"oscript"
 				],
 				"configuration": "./client/syntaxes/ojson-language-configuration.json"
