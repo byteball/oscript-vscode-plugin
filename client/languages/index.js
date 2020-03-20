@@ -4,7 +4,7 @@ const uniq = require('lodash/uniq')
 const get = require('lodash/get')
 const ojsonKeysList = require('./words/ojson/keys')
 const ojsonValuesList = require('./words/ojson/values')
-const oscriptWordsList = require('./words/oscript/words')
+const formulaWordsList = require('./words/formula/words')
 
 module.exports = {
 	triggerCharacters: '$',
@@ -22,11 +22,11 @@ module.exports = {
 			return completion
 		}
 
-		if (isOscript(model, position)) {
+		if (isFormula(model, position)) {
 			if (lineUntilPosition.search(/\$[a-zA-Z0-9_]*$/) !== -1) {
-				return oscriptVariables(model)
+				return formulaVariables(model)
 			} else {
-				return cloneDeep(oscriptWordsList).map(makeCompletion)
+				return cloneDeep(formulaWordsList).map(makeCompletion)
 			}
 		}
 
@@ -43,7 +43,7 @@ module.exports = {
 		const word = model.getText(range)
 
 		let hints
-		if (isOscript(model, position)) {
+		if (isFormula(model, position)) {
 			let label = word
 			const nextChar = line[range.end.character]
 			const prevChar = line[range.start.character - 1]
@@ -63,7 +63,7 @@ module.exports = {
 				}
 			}
 
-			hints = oscriptWordsList.filter(w => (w.label === label || (Array.isArray(w.labelAlts) && w.labelAlts.indexOf(label) !== -1)) && w.documentation)
+			hints = formulaWordsList.filter(w => (w.label === label || (Array.isArray(w.labelAlts) && w.labelAlts.indexOf(label) !== -1)) && w.documentation)
 		} else if (isOjsonValues(model, position)) {
 			hints = ojsonValuesList.filter(w => w.label === word && w.documentation)
 		} else {
@@ -85,7 +85,7 @@ const isOjsonValues = (model, position) => {
 	return lineUntilPosition.match(/:\s*(\S+)?$/)
 }
 
-const isOscript = (model, position) => {
+const isFormula = (model, position) => {
 	const text = model.getText(new vscode.Range(1, 1, position.line, position.character))
 
 	for (let i = text.length - 1; i > 0; i--) {
@@ -98,7 +98,7 @@ const isOscript = (model, position) => {
 	}
 }
 
-const oscriptVariables = (model, position) => {
+const formulaVariables = (model, position) => {
 	const text = model.getText()
 	return uniq(text.match(/\$[a-zA-Z0-9_]+/g)).map(e => {
 		const completion = new vscode.CompletionItem(e.slice(1), vscode.CompletionItemKind.Variable)

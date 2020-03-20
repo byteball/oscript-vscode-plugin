@@ -1,0 +1,105 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "oscript.formula",
+	"patterns": [
+		{ "include": "#comments" },
+		{ "include": "#keywords" },
+		{ "include": "#operators" },
+		{ "include": "#trigger" },
+		{ "include": "#strings" },
+		{ "include": "#variables" },
+		{ "include": "#numbers" }
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.oscript.formula",
+					"match": "\\b(true|false)\\b"
+				},
+				{
+					"name": "keyword.control.oscript.formula",
+					"match": "\\b(if|else|return|bounce)\\b"
+				},
+				{
+					"name": "keyword.oscript.formula",
+					"match": "\\b(params|trigger\\.data|trigger\\.output|trigger\\.address|trigger\\.unit|trigger\\.initial_address)\\b"
+				},
+				{
+					"name": "keyword.oscript.formula",
+					"match": "(?<!\\.)\\b(var|response|response_unit|timestamp|mci|mc_unit|this_address|base|data_feed|in_data_feed|attestation|balance|address|amount|asset|attestors|ifseveral|ifnone|type|oracles|feed_name|min_mci|feed_value|what|pi|e|storage_size|unit|number_of_responses|vrf_verify|definition)\\b"
+				},
+				{
+					"name": "entity.name.function.oscript.formula",
+					"match": "(?<!\\.)\\b(min|max|sqrt|ln|ceil|floor|round|abs|hypot|is_valid_signed_package|sha256|is_valid_sig|json_parse|json_stringify|number_from_seed|length|is_valid_address|substring|starts_with|ends_with|contains|parse_date|timestamp_to_string|typeof|is_integer|is_valid_amount|is_aa|index_of|array_length|is_array|is_assoc|to_upper|to_lower|exists)\\b"
+				}
+			]
+		},
+		"trigger": {
+			"patterns": [
+				{
+					"name": "variable.oscript.formula",
+					"match": "(?<=trigger\\.data)(\\.\\w+)+"
+				}
+			]
+		},
+		"operators": {
+			"name": "keyword.operator.oscript.formula",
+			"match": "((OR|NOT|AND|OTHERWISE|or|and|not|otherwise|!=|!!|==|<=|>=|\\+=|-=|\\*=|%=|/=|(\\|\\|=)|(\\|\\|))|[=><?:+*/%^!-])"
+		},
+		"comments": {
+			"patterns": [
+				{
+					"name": "comment.oscript.formula",
+					"match": "//.*$"
+				},
+				{
+					"name": "comment.oscript.formula",
+					"begin": "/\\*",
+					"end": "\\*/"
+				}
+			]
+		},
+		"strings": {
+			"patterns": [
+				{
+					"name": "string.quoted.oscript.formula",
+					"begin": "'",
+					"end": "(\\')|((?:[^\\\\\\n])$)",
+					"patterns": [{ "include": "#string-character-escape" }]
+				},
+				{
+					"name": "string.quoted.oscript.formula",
+					"begin": "\"",
+					"end": "(\")|((?:[^\\\\\\n])$)",
+					"patterns": [{ "include": "#string-character-escape" }]
+				}
+			]
+		},
+		"string-character-escape": {
+			"name": "constant.character.escape.js",
+			"match": "\\\\(x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4}|u\\{[0-9A-Fa-f]+\\}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.|$)"
+		},
+		"variables": {
+			"patterns": [
+				{
+					"name": "entity.name.type.oscript.formula",
+					"match": "\\$\\w+(\\.\\w+)*"
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"name": "constant.numeric.oscript.formula",
+					"match": "\\b\\d+([eE][-+]?\\d+)?\\b"
+				},
+				{
+					"name": "constant.numeric.oscript.formula",
+					"match": "\\b\\d*\\.\\d+([eE][-+]?\\d+)?\\b"
+				}
+			]
+		}
+	},
+	"scopeName": "source.oscript.formula"
+}

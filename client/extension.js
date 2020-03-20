@@ -4,23 +4,23 @@ const {
 	TransportKind
 } = require('vscode-languageclient')
 const vscode = require('vscode')
-const ojson = require('./languages/ojson')
+const oscript = require('./languages')
 const config = require('../config/default.json')
 
 let client, statusBarItem
 const validations = {}
 
 function activate (context) {
-	vscode.languages.registerCompletionItemProvider('ojson', {
-		triggerCharacters: ojson.triggerCharacters,
+	vscode.languages.registerCompletionItemProvider('oscript', {
+		triggerCharacters: oscript.triggerCharacters,
 		provideCompletionItems: (model, position) => {
-			return ojson.suggestions(model, position)
+			return oscript.suggestions(model, position)
 		}
 	})
 
-	vscode.languages.registerHoverProvider('ojson', {
+	vscode.languages.registerHoverProvider('oscript', {
 		provideHover: (model, position) => {
-			return ojson.hovers(model, position)
+			return oscript.hovers(model, position)
 		}
 	})
 
@@ -44,7 +44,7 @@ function activate (context) {
 	}
 
 	let clientOptions = {
-		documentSelector: [{ scheme: 'file', language: 'ojson' }],
+		documentSelector: [{ scheme: 'file', language: 'oscript' }],
 		synchronize: {
 			fileEvents: vscode.workspace.createFileSystemWatcher('**/.clientrc')
 		}
