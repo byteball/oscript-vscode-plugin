@@ -6,6 +6,9 @@ const {
 const vscode = require('vscode')
 const oscript = require('./languages')
 const config = require('../config/default.json')
+const testing = require('./testing')
+// eslint-disable-next-line no-unused-vars
+const toRegex = require('to-regex')
 
 let client, statusBarItem
 const validations = {}
@@ -24,12 +27,19 @@ function activate (context) {
 		}
 	})
 
+	vscode.languages.registerCodeLensProvider('javascript', {
+		provideCodeLenses: (document) => {
+			return testing.provideCodeLens()
+		}
+	})
+
 	statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left)
-	statusBarItem.command = 'oscript-vscode-plugin.deployAa'
+	statusBarItem.command = 'oscript.deployAa'
 	statusBarItem.tooltip = 'Click to deploy Autonomous Agent'
 
 	let serverModule = context.asAbsolutePath(
 		path.join('server', 'server.js')
+		// path.join('server', 'out', 'server.js')
 	)
 
 	let debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] }
@@ -63,7 +73,7 @@ function activate (context) {
 		client.onRequest('aa-validation-error', aaValidationError)
 		client.onRequest('aa-validation-inprogress', aaValidationInProgress)
 
-		const deployCommand = vscode.commands.registerCommand('oscript-vscode-plugin.deployAa', async () => {
+		const deployCommand = vscode.commands.registerCommand('oscript.deployAa', async () => {
 			const network = await vscode.window.showInformationMessage('Choose a network for deployment', 'testnet', 'mainnet' /* 'local' */)
 			if (network) {
 				if (vscode.window.activeTextEditor) {
@@ -74,8 +84,8 @@ function activate (context) {
 		})
 		context.subscriptions.push(deployCommand)
 
-		const checkDuplicateCommand = vscode.commands.registerCommand('oscript-vscode-plugin.checkDuplicateAa', async () => {
-			const network = await vscode.window.showInformationMessage('Choose a network for duplication check', 'testnet', 'mainnet', 'local')
+		const checkDuplicateCommand = vscode.commands.registerCommand('oscript.checkDuplicateAa', async () => {
+			const network = await vscode.window.showInformationMessage('Choose a network for duplication check', 'testnet', 'mainnet' /* 'local' */)
 			if (network) {
 				if (vscode.window.activeTextEditor) {
 					const uri = vscode.window.activeTextEditor.document.uri.toString()
@@ -84,6 +94,12 @@ function activate (context) {
 			}
 		})
 		context.subscriptions.push(checkDuplicateCommand)
+
+		const testCurrentFileCommand = vscode.commands.registerCommand('oscript.test.currentFile', testing.testCurrentFile)
+		context.subscriptions.push(testCurrentFileCommand)
+
+		const testExampleFilesCommand = vscode.commands.registerCommand('oscript.test.example', testing.provideTestExample)
+		context.subscriptions.push(testExampleFilesCommand)
 	})
 
 	vscode.window.onDidChangeActiveTextEditor((editor) => {

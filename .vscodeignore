@@ -1,0 +1,28 @@
+# node_modules/aa-testkit/testdata
+node_modules/bitcore-mnemonic/test/data/#fixtures.json.1#
+# testdata/**
+# .vscode/**
+# .git/**
+# **/*.map
+# .gitignore
+# shared.webpack.config.js
+# client/**
+# server/**
+# !client/out/extension.js
+# !server/out/server.js
+# config
+yarn-error.log
+# webpack.config.js
+# loaders
+# !client/syntaxes
+
+# node_modules
+# !node_modules/mocha/**
+# !node_modules/ocore/**
+# !node_modules/ws/**
+# !node_modules/obyte/**
+# !node_modules/babel-runtime/**
+# !node_modules/core-js/**
+
+
+# !node_modules/to-regex
