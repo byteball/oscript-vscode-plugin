@@ -1,5 +1,10 @@
 # Change Log
 
+## v0.2.5
+
+### Features
+1. Integration with AA testing framework
+
 ## v0.2.4
 
 ### Fixes
@@ -10,7 +15,7 @@
 ## v0.2.3
 
 ### Fixes
-1. Fix duplicate check showing agent is not deploye although it is
+1. Fix duplicate check showing agent is not deployed although it is
 
 ## v0.2.2
 

@@ -4,7 +4,7 @@
 	"description": "Oscript support for writing Autonomous Agents in VS Code",
 	"author": "Obyte",
 	"license": "MIT",
-	"version": "0.2.4",
+	"version": "0.2.5",
 	"icon": "images/icon.png",
 	"repository": {
 		"type": "git",
@@ -12,7 +12,10 @@
 	},
 	"main": "./client/extension",
 	"activationEvents": [
-		"onLanguage:oscript"
+		"onLanguage:oscript",
+		"onCommand:oscript.test.currentFile",
+		"onCommand:oscript.test.example",
+		"workspaceContains:*.test.oscript.js"
 	],
 	"publisher": "obyte",
 	"categories": [
@@ -28,12 +31,20 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "oscript-vscode-plugin.deployAa",
+				"command": "oscript.deployAa",
 				"title": "Oscript: Deploy Autonomous Agent"
 			},
 			{
-				"command": "oscript-vscode-plugin.checkDuplicateAa",
+				"command": "oscript.checkDuplicateAa",
 				"title": "Oscript: Check if Autonomous Agent is already deployed"
+			},
+			{
+				"command": "oscript.test.currentFile",
+				"title": "Oscript: Test current file"
+			},
+			{
+				"command": "oscript.test.example",
+				"title": "Oscript: Create test example files"
 			}
 		],
 		"languages": [
@@ -76,8 +87,24 @@
 		"vscode": "^1.33.0"
 	},
 	"scripts": {
-		"vscode:prepublish": "cd client && yarn && cd .. && yarn",
-		"postinstall": "cd client && yarn && cd ../server && yarn && cd .."
+		"vscode:prepublish": "echo yarn webpack",
+		"postinstall": "cd client && yarn && cd ../server && yarn && cd ..",
+		"webpack:dev": "yarn clean &&  ./node_modules/.bin/webpack --mode development --config ./client/webpack.config.js && ./node_modules/.bin/webpack --mode development --config ./server/webpack.config.js",
+		"webpack": "yarn clean && ./node_modules/.bin/webpack --mode production --config ./client/webpack.config.js && ./node_modules/.bin/webpack --mode production --config ./server/webpack.config.js",
+		"clean": "rimraf client/out && rimraf server/out"
+	},
+	"dependencies": {
+		"aa-testkit": "git+https://github.com/valyakin/aa-testkit.git",
+		"axios": "^0.19.2",
+		"chai": "^4.2.0",
+		"chokidar": "^3.3.1",
+		"lodash": "^4.17.15",
+		"mocha": "^7.1.1",
+		"obyte": "^0.1.7",
+		"ocore": "git+https://github.com/byteball/ocore.git",
+		"open": "^7.0.3",
+		"to-regex": "^3.0.2",
+		"vscode-languageclient": "^5.2.1"
 	},
 	"devDependencies": {
 		"eslint": "^5.16.0",
@@ -85,10 +112,11 @@
 		"eslint-plugin-import": "^2.17.3",
 		"eslint-plugin-node": "^9.1.0",
 		"eslint-plugin-promise": "^4.1.1",
-		"eslint-plugin-standard": "^4.0.0"
-	},
-	"dependencies": {
-		"axios": "^0.19.2",
-		"open": "^7.0.3"
+		"eslint-plugin-standard": "^4.0.0",
+		"merge-options": "^2.0.0",
+		"rimraf": "^3.0.2",
+		"ts-loader": "^6.2.2",
+		"webpack": "^4.42.1",
+		"webpack-cli": "^3.3.11"
 	}
 }
