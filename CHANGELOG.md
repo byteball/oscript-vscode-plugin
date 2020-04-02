@@ -1,5 +1,10 @@
 # Change Log
 
+## v0.2.6
+
+### Fixes
+1. Fixed AA test example
+
 ## v0.2.5
 
 ### Features
