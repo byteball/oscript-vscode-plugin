@@ -1441,5 +1441,44 @@ Returns a string that contains the concatenation of two strings.
 
 `
 		}
+	},
+	{
+		label: 'params',
+		insertText: 'params',
+		kind: vscode.CompletionItemKind.Keyword,
+		detail: '`params` - parameters of the parameterized Autonomous Agent',
+		documentation: {
+			value:
+`
+It is possible to create parameterized Autonomous Agents, which are based on previously deployed templates. Their structure for that kind of Autonomous Agent would look like this:
+
+	["autonomous agent", {
+		base_aa: "ADDRESS_OF_BASE_AA",
+		params: {
+				name1: "value1",
+				name2: "value2",
+				...
+		}
+	}]
+
+The base AA template would need to reference these parameters as params.name1 and params.name2
+`
+		}
+	},
+	{
+		label: 'unit',
+		insertText: 'unit[]',
+		kind: vscode.CompletionItemKind.Keyword,
+		detail: '`unit` external reference',
+		documentation: {
+			value:
+`
+	\`{
+	$timestamp = = unit['UNIT_HASH'].timestamp;
+	}\`
+
+It allows to inspect any unit using \`unit['UNIT_HASH']\` syntax.
+`
+		}
 	}
 ]

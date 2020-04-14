@@ -9,7 +9,7 @@ Write and validate Autonomous Agents in Oscript language. AAs are programs that 
 * Agent deployment directly from the extension
 
 ## Agent deployment
-Oscript extension provides `Oscript: Deploy Autonomous Agent` command which is available in command picker.
+Oscript extension provides `Oscript: Deploy Autonomous Agent` command which is available in Command Palette.
 Execute it after AA validation and you will get the link you can use to deploy the agent with your phone or another device.
 Another way to do this is to click on the validation message in the status bar.
 
