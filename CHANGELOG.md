@@ -1,5 +1,12 @@
 # Change Log
 
+## v0.2.7
+
+### Fixes
+1. Fixed `validUnit` mocha check
+2. Added autocomplete for `params` and `unit` in formula
+3. aa-testkit updated
+
 ## v0.2.6
 
 ### Fixes

@@ -10,9 +10,9 @@
     "@babel/highlight" "^7.8.3"
 
 "@babel/helper-validator-identifier@^7.9.0":
-  version "7.9.0"
-  resolved "https://registry.yarnpkg.com/@babel/helper-validator-identifier/-/helper-validator-identifier-7.9.0.tgz#ad53562a7fc29b3b9a91bbf7d10397fd146346ed"
-  integrity sha512-6G8bQKjOh+of4PV/ThDm/rRqlU7+IGoJuofpagU5GlEl29Vv0RGqqt86ZGRV8ZuSOY3o+8yXl5y782SMcG7SHw==
+  version "7.9.5"
+  resolved "https://registry.yarnpkg.com/@babel/helper-validator-identifier/-/helper-validator-identifier-7.9.5.tgz#90977a8e6fbf6b431a7dc31752eee233bf052d80"
+  integrity sha512-/8arLKUFq882w4tWGj9JYzRpAlZgiWUJ+dtteNTDqrRBz9Iguck9Rn3ykuBDoUwh2TO4tSAJlrxDUOXWklJe4g==
 
 "@babel/highlight@^7.8.3":
   version "7.9.0"
@@ -179,8 +179,8 @@
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
 "aa-testkit@git+https://github.com/valyakin/aa-testkit.git":
-  version "0.1.3"
-  resolved "git+https://github.com/valyakin/aa-testkit.git#0a59f89b0ec61619ae20a7b7ddc233e15c69b697"
+  version "0.1.4"
+  resolved "git+https://github.com/valyakin/aa-testkit.git#bfb64fad1c938767554721d088898dc69c0192d7"
   dependencies:
     config "^3.2.2"
     headless-obyte "git+https://github.com/byteball/headless-obyte"
@@ -1776,9 +1776,9 @@ esprima@^4.0.0:
   integrity sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==
 
 esquery@^1.0.1:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/esquery/-/esquery-1.2.0.tgz#a010a519c0288f2530b3404124bfb5f02e9797fe"
-  integrity sha512-weltsSqdeWIX9G2qQZz7KlTRJdkkOCTPgLYJUz1Hacf48R4YOwGPHO3+ORfWedqJKbq5WQmsgK90n+pFLIKt/Q==
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/esquery/-/esquery-1.2.1.tgz#105239e215c5aa480369c7794d74b8b5914c19d4"
+  integrity sha512-/IcAXa9GWOX9BUIb/Tz2QrrAWFWzWGrFIeLeMRwtiuwg9qTFhSYemsi9DixwrFFqVbhBZ47vGcxEnu5mbPqbig==
   dependencies:
     estraverse "^5.0.0"
 
@@ -2437,7 +2437,7 @@ he@1.2.0:
 
 "headless-obyte@git+https://github.com/byteball/headless-obyte":
   version "0.1.9"
-  resolved "git+https://github.com/byteball/headless-obyte#95d33a92ecba9f8b3c84fbaa67c87b19b97784a0"
+  resolved "git+https://github.com/byteball/headless-obyte#25760d5636fd81d312e2b63f53cee5cd5d473c23"
   dependencies:
     bitcore-lib "^0.13.14"
     bitcore-mnemonic "~1.0.0"
@@ -2447,8 +2447,8 @@ he@1.2.0:
 
 "headless-obyte@git+https://github.com/byteball/headless-obyte.git":
   version "0.1.9"
-  uid "95d33a92ecba9f8b3c84fbaa67c87b19b97784a0"
-  resolved "git+https://github.com/byteball/headless-obyte.git#95d33a92ecba9f8b3c84fbaa67c87b19b97784a0"
+  uid "25760d5636fd81d312e2b63f53cee5cd5d473c23"
+  resolved "git+https://github.com/byteball/headless-obyte.git#25760d5636fd81d312e2b63f53cee5cd5d473c23"
   dependencies:
     bitcore-lib "^0.13.14"
     bitcore-mnemonic "~1.0.0"
@@ -2994,9 +2994,9 @@ json5@^1.0.1:
     minimist "^1.2.0"
 
 json5@^2.1.1:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/json5/-/json5-2.1.2.tgz#43ef1f0af9835dd624751a6b7fa48874fb2d608e"
-  integrity sha512-MoUOQ4WdiN3yxhm7NEVJSJrieAo5hNSLQ5sj05OTRHPL9HOBy8u4Bu88jsC1jvqAdN+E1bJmsUcZH+1HQxliqQ==
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/json5/-/json5-2.1.3.tgz#c9b0f7fa9233bfe5807fe66fcf3a5617ed597d43"
+  integrity sha512-KXPvOm8K9IJKFM0bmdn8QXh7udDh1g/giieX0NLCaMnb4hEiVFqnop2ImTXCc5e0/oHz3LTqmHGtExn5hfMkOA==
   dependencies:
     minimist "^1.2.5"
 
@@ -3275,9 +3275,9 @@ make-plural@^4.3.0:
     minimist "^1.2.0"
 
 make-plural@^6.0.1:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/make-plural/-/make-plural-6.1.0.tgz#490b381874b7c454bace11b23b899809b95b9e8b"
-  integrity sha512-0ekbPHqxcdRcmjZ43TkRuejK5rXgMF1OjG4FVnVHgCvOcjrexaSX7a0dfAvqhOm1qWPgjYnXtmz3cHpHW5ZewA==
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/make-plural/-/make-plural-6.2.1.tgz#2790af1d05fb2fc35a111ce759ffdb0aca1339a3"
+  integrity sha512-AmkruwJ9EjvyTv6AM8MBMK3TAeOJvhgTv5YQXzF0EP2qawhpvMjDpHvsdOIIT0Vn+BB0+IogmYZ1z+Ulm/m0Fg==
 
 map-age-cleaner@^0.1.1:
   version "0.1.3"
@@ -3360,9 +3360,9 @@ messageformat-formatters@^2.0.1:
   integrity sha512-E/lQRXhtHwGuiQjI7qxkLp8AHbMD5r2217XNe/SREbBlSawe0lOqsFb7rflZJmlQFSULNLIqlcjjsCPlB3m3Mg==
 
 messageformat-parser@^4.1.2:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/messageformat-parser/-/messageformat-parser-4.1.2.tgz#fd34ec39912a14868a1595eaeb742485ab8ab372"
-  integrity sha512-7dWuifeyldz7vhEuL96Kwq1fhZXBW+TUfbnHN4UCrCxoXQTYjHnR78eI66Gk9LaLLsAvzPNVJBaa66DRfFNaiA==
+  version "4.1.3"
+  resolved "https://registry.yarnpkg.com/messageformat-parser/-/messageformat-parser-4.1.3.tgz#b824787f57fcda7d50769f5b63e8d4fda68f5b9e"
+  integrity sha512-2fU3XDCanRqeOCkn7R5zW5VQHWf+T3hH65SzuqRvjatBK7r4uyFa5mEX+k6F9Bd04LVM5G4/BHBTUJsOdW7uyg==
 
 messageformat@^2.3.0:
   version "2.3.0"
@@ -3519,9 +3519,9 @@ mkdirp@0.5.3:
     minimist "^1.2.5"
 
 mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@^0.5.3:
-  version "0.5.4"
-  resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.4.tgz#fd01504a6797ec5c9be81ff43d204961ed64a512"
-  integrity sha512-iG9AK/dJLtJ0XNgTuDbSyNS3zECqDlAhnQW4CsNxBG3LQJBbHmRX1egw39DmtOdCAqY+dKXV+sgPgilNWUKMVw==
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.5.tgz#d91cefd62d1436ca0f41620e251288d420099def"
+  integrity sha512-NKmAlESf6jMGym1++R0Ra7wvhV+wFW63FaSOFPwRahvea0gMUcGUhVeAg/0BC0wiv9ih5NYPB1Wn1UEI1/L+xQ==
   dependencies:
     minimist "^1.2.5"
 
@@ -3671,9 +3671,9 @@ nearley@2.16.0:
     semver "^5.4.1"
 
 needle@^2.2.1:
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/needle/-/needle-2.3.3.tgz#a041ad1d04a871b0ebb666f40baaf1fb47867117"
-  integrity sha512-EkY0GeSq87rWp1hoq/sH/wnTWgFVhYlnIkbJ0YJFfRgEFlz2RraCjBpFQ+vrEgEdp0ThfyHADmkChEhcb7PKyw==
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/needle/-/needle-2.4.1.tgz#14af48732463d7475696f937626b1b993247a56a"
+  integrity sha512-x/gi6ijr4B7fwl6WYL9FwlCvRQKGlUNvnceho8wxkwXqN8jvVmmmATTmZPRRG7b/yC1eode26C2HO9jl78Du9g==
   dependencies:
     debug "^3.2.6"
     iconv-lite "^0.4.4"
@@ -3935,7 +3935,7 @@ object.values@^1.1.0:
 
 "obyte-explorer@git+https://github.com/byteball/obyte-explorer":
   version "0.1.0"
-  resolved "git+https://github.com/byteball/obyte-explorer#1d18e30effd7444d91e772a007c8085504f75c0b"
+  resolved "git+https://github.com/byteball/obyte-explorer#953dc9045d13ff8448210941be6e2cfe39eb1bae"
   dependencies:
     async "^2.1.5"
     ejs "^2.6.1"
@@ -3947,7 +3947,7 @@ object.values@^1.1.0:
 
 "obyte-hub@git+https://github.com/byteball/obyte-hub":
   version "0.1.5"
-  resolved "git+https://github.com/byteball/obyte-hub#8a94c122223613670f874e1d8b6d0a83f842dbdf"
+  resolved "git+https://github.com/byteball/obyte-hub#99bcb1cb5b22c05ea2754a5d9f7d7f78f22e7f1e"
   dependencies:
     apn "^2.2.0"
     obyte-relay "git+https://github.com/byteball/obyte-relay.git"
@@ -3980,7 +3980,7 @@ obyte@^0.1.7:
 
 "ocore@git+https://github.com/byteball/ocore":
   version "0.3.9"
-  resolved "git+https://github.com/byteball/ocore#c0a8912a083ee1063a543fde2feb7cde0ff4d325"
+  resolved "git+https://github.com/byteball/ocore#70081f3e768032888395c2310fd6d4964716cb5d"
   dependencies:
     async "^2.6.1"
     bitcore-mnemonic "~1.0.0"
@@ -4001,8 +4001,8 @@ obyte@^0.1.7:
 
 "ocore@git+https://github.com/byteball/ocore.git":
   version "0.3.9"
-  uid c0a8912a083ee1063a543fde2feb7cde0ff4d325
-  resolved "git+https://github.com/byteball/ocore.git#c0a8912a083ee1063a543fde2feb7cde0ff4d325"
+  uid "70081f3e768032888395c2310fd6d4964716cb5d"
+  resolved "git+https://github.com/byteball/ocore.git#70081f3e768032888395c2310fd6d4964716cb5d"
   dependencies:
     async "^2.6.1"
     bitcore-mnemonic "~1.0.0"
@@ -4122,9 +4122,9 @@ p-limit@^1.1.0:
     p-try "^1.0.0"
 
 p-limit@^2.0.0:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/p-limit/-/p-limit-2.2.2.tgz#61279b67721f5287aa1c13a9a7fbbc48c9291b1e"
-  integrity sha512-WGR+xHecKTr7EbUEhyLSh5Dube9JtdiG78ufaeLxTgpudf/20KqyMioIUZJAezlTIi6evxuoUs9YXc11cU+yzQ==
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/p-limit/-/p-limit-2.3.0.tgz#3dd33c647a214fdfffd835933eb086da0dc21db1"
+  integrity sha512-//88mFWSJx8lxCzwdAABTJL2MyWB12+eIY7MDL2SqLmAkeKU9qxRvWuSyTjm3FUmpBEMuFfckAIqEaVGUDxb6w==
   dependencies:
     p-try "^2.0.0"
 
@@ -4748,9 +4748,9 @@ run-queue@^1.0.0, run-queue@^1.0.3:
     aproba "^1.1.1"
 
 rxjs@^6.4.0:
-  version "6.5.4"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.5.4.tgz#e0777fe0d184cec7872df147f303572d414e211c"
-  integrity sha512-naMQXcgEo3csAEGvw/NydRA0fuS2nDZJiw1YUWFKU7aPPAPGZEsD4Iimit96qwCieH6y614MCLYwdkrWx7z/7Q==
+  version "6.5.5"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.5.5.tgz#c5c884e3094c8cfee31bf27eb87e54ccfc87f9ec"
+  integrity sha512-WfQI+1gohdf0Dai/Bbmk5L5ItH5tYqm3ki2c5GdWhKjalzjg93N3avFjVStyZZz+A2Em+ZxKH5bNghw9UeylGQ==
   dependencies:
     tslib "^1.9.0"
 
@@ -5214,9 +5214,9 @@ string-width@^3.0.0, string-width@^3.1.0:
     strip-ansi "^5.1.0"
 
 string.prototype.trimend@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/string.prototype.trimend/-/string.prototype.trimend-1.0.0.tgz#ee497fd29768646d84be2c9b819e292439614373"
-  integrity sha512-EEJnGqa/xNfIg05SxiPSqRS7S9qwDhYts1TSLR1BQfYUfPe1stofgGKvwERK9+9yf+PpfBMlpBaCHucXGPQfUA==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/string.prototype.trimend/-/string.prototype.trimend-1.0.1.tgz#85812a6b847ac002270f5808146064c995fb6913"
+  integrity sha512-LRPxFUaTtpqYsTeNKaFOw3R4bxIzWOnbQ837QfBylo8jIxtcbK/A/sMV7Q+OAV/vWo+7s25pOE10KYSjaSO06g==
   dependencies:
     define-properties "^1.1.3"
     es-abstract "^1.17.5"
@@ -5240,9 +5240,9 @@ string.prototype.trimright@^2.1.1:
     string.prototype.trimend "^1.0.0"
 
 string.prototype.trimstart@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/string.prototype.trimstart/-/string.prototype.trimstart-1.0.0.tgz#afe596a7ce9de905496919406c9734845f01a2f2"
-  integrity sha512-iCP8g01NFYiiBOnwG1Xc3WZLyoo+RuBymwIlWncShXDDJYWN6DbnM3odslBJdgCdRlq94B5s63NWAZlcn2CS4w==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/string.prototype.trimstart/-/string.prototype.trimstart-1.0.1.tgz#14af6d9f34b053f7cfc89b72f8f2ee14b9039a54"
+  integrity sha512-XxZn+QpvrBI1FOcg6dIpxUPgWCPuNXvMD72aaRaUQv1eD4e/Qy8i/hFTe0BUmD60p/QA6bh1avmuPTfNjqVWRw==
   dependencies:
     define-properties "^1.1.3"
     es-abstract "^1.17.5"
@@ -5383,9 +5383,9 @@ terser-webpack-plugin@^1.4.3:
     worker-farm "^1.7.0"
 
 terser@^4.1.2:
-  version "4.6.10"
-  resolved "https://registry.yarnpkg.com/terser/-/terser-4.6.10.tgz#90f5bd069ff456ddbc9503b18e52f9c493d3b7c2"
-  integrity sha512-qbF/3UOo11Hggsbsqm2hPa6+L4w7bkr+09FNseEe8xrcVD3APGLFqE+Oz1ZKAxjYnFsj80rLOfgAtJ0LNJjtTA==
+  version "4.6.11"
+  resolved "https://registry.yarnpkg.com/terser/-/terser-4.6.11.tgz#12ff99fdd62a26de2a82f508515407eb6ccd8a9f"
+  integrity sha512-76Ynm7OXUG5xhOpblhytE7X58oeNSmC8xnNhjWVo8CksHit0U0kO4hfNbPrrYwowLWFgM2n9L176VNx2QaHmtA==
   dependencies:
     commander "^2.20.0"
     source-map "~0.6.1"
