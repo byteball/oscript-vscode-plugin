@@ -3,48 +3,50 @@
 // `Testkit`, `Network`, `Nodes` and `Utils` from `aa-testkit` are available globally too
 const AA_PATH = './example.aa'
 
-describe('Check `just a bouncer` AA', function () {
+describe('Check simple AA', function () {
 	this.timeout(120000)
 
 	before(async () => {
 		this.network = await Network.create()
+			.with.agent({ simpleAgent: AA_PATH })
+			.with.wallet({ alice: 1e6 })
+			.with.wallet({ bob: 1e3 })
+			.run()
 	})
 
-	it('Check agent deployment', async () => {
-		const network = this.network
-		const genesis = await network.getGenesisNode().ready()
-
-		const deployer = await network.newHeadlessWallet().ready()
-		const deployerAddress = await deployer.getAddress()
-
-		const wallet = await network.newHeadlessWallet().ready()
-		const walletAddress = await wallet.getAddress()
-
-		await genesis.sendBytes({ toAddress: deployerAddress, amount: 1000000 })
-		const { unit } = await genesis.sendBytes({ toAddress: walletAddress, amount: 1000000 })
-		await network.witnessUntilStable(unit)
-
-		const { address: agentAddress, unit: agentUnit, error: deploymentError } = await deployer.deployAgent(AA_PATH)
-		expect(deploymentError).to.be.null
-
-		let walletBalance = await wallet.getBalance()
-
-		expect(agentAddress).to.be.validAddress
-		expect(agentUnit).to.be.validUnit
-		expect(walletBalance.base.stable).to.be.equal(1000000)
-
-		await network.witnessUntilStable(agentUnit)
-
-		const { unit: newUnit } = await wallet.sendBytes({
-			toAddress: agentAddress,
+	it('Send bytes and check balance', async () => {
+		const { unit } = await this.network.wallet.alice.sendBytes({
+			toAddress: await this.network.wallet.bob.getAddress(),
 			amount: 10000
 		})
 
-		expect(newUnit).to.be.validUnit
-		await network.witnessUntilStable(newUnit)
+		expect(unit).to.be.validUnit
+		await this.network.witnessUntilStable(unit)
 
-		walletBalance = await wallet.getBalance()
-		expect(walletBalance.base.pending).to.be.equal(9000)
+		const bobBalance = await this.network.wallet.bob.getBalance()
+		expect(bobBalance.base.pending).to.be.equal(0)
+		expect(bobBalance.base.stable).to.be.equal(11000)
+
+		const aliceBalance = await this.network.wallet.alice.getBalance()
+		expect(aliceBalance.base.pending).to.be.equal(0)
+		expect(aliceBalance.base.stable).to.be.equal(989756)
+	}).timeout(60000)
+
+	it('Trigger AA', async () => {
+		const { unit, error } = await this.network.wallet.alice.triggerAaWithData({
+			toAddress: this.network.agent.simpleAgent,
+			amount: 10000,
+			data: {
+				a: 100,
+				b: 200
+			}
+		})
+
+		expect(error).to.be.null
+		expect(unit).to.be.validUnit
+
+		const { response } = await this.network.getAaResponseToUnitOnNode(this.network.wallet.alice, unit)
+		expect(response.response.responseVars.result).to.be.equal(300)
 	}).timeout(60000)
 
 	after(async () => {

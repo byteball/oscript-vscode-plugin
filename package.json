@@ -4,7 +4,7 @@
 	"description": "Oscript support for writing Autonomous Agents in VS Code",
 	"author": "Obyte",
 	"license": "MIT",
-	"version": "0.2.7",
+	"version": "0.2.8",
 	"icon": "images/icon.png",
 	"repository": {
 		"type": "git",
@@ -87,11 +87,9 @@
 		"vscode": "^1.33.0"
 	},
 	"scripts": {
-		"vscode:prepublish": "echo yarn webpack",
-		"postinstall": "cd client && yarn && cd ../server && yarn && cd ..",
-		"webpack:dev": "yarn clean &&  ./node_modules/.bin/webpack --mode development --config ./client/webpack.config.js && ./node_modules/.bin/webpack --mode development --config ./server/webpack.config.js",
-		"webpack": "yarn clean && ./node_modules/.bin/webpack --mode production --config ./client/webpack.config.js && ./node_modules/.bin/webpack --mode production --config ./server/webpack.config.js",
-		"clean": "rimraf client/out && rimraf server/out"
+		"publish": "vsce publish --yarn",
+		"package": "vsce package --yarn",
+		"postinstall": "cd client && yarn && cd ../server && yarn && cd .."
 	},
 	"dependencies": {
 		"aa-testkit": "git+https://github.com/valyakin/aa-testkit.git",

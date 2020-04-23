@@ -1,5 +1,10 @@
 # Change Log
 
+## v0.2.8
+
+### Fixes
+1. Fix duplication check error when deploying on mainnet after deploying same agent on testnet
+
 ## v0.2.7
 
 ### Fixes
