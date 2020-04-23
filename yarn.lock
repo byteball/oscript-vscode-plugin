@@ -179,8 +179,8 @@
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
 "aa-testkit@git+https://github.com/valyakin/aa-testkit.git":
-  version "0.2.0"
-  resolved "git+https://github.com/valyakin/aa-testkit.git#58fb9dca9640c21519054045c3c84ea86be2df86"
+  version "0.2.1"
+  resolved "git+https://github.com/valyakin/aa-testkit.git#6d0a9a712b72c2a9e3d016594596482e76010cd3"
   dependencies:
     config "^3.2.2"
     headless-obyte "git+https://github.com/byteball/headless-obyte"
