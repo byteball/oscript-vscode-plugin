@@ -14,7 +14,10 @@ const parseOjson = require('ocore/formula/parse_ojson')
 const objectHash = require('ocore/object_hash')
 const open = require('open')
 
-const duplicateChecks = {}
+const duplicateChecks = {
+	mainnet: {},
+	testnet: {}
+}
 const documents = new TextDocuments()
 const connection = createConnection(ProposedFeatures.all)
 
@@ -90,9 +93,10 @@ async function validateTextDocument (textDocument) {
 function checkDuplicateAgent (ojson, config) {
 	return new Promise((resolve, reject) => {
 		const address = objectHash.getChash160(ojson)
-		if (address in duplicateChecks) {
-			if (duplicateChecks[address].error) {
-				reject(new Error(duplicateChecks[address].error))
+		const networkKey = config.testnet ? 'testnet' : 'mainnet'
+		if (address in duplicateChecks[networkKey]) {
+			if (duplicateChecks[networkKey][address].error) {
+				reject(new Error(duplicateChecks[networkKey][address].error))
 			} else {
 				resolve(address)
 			}
@@ -115,7 +119,7 @@ function checkDuplicateAgent (ojson, config) {
 					reject(new Error(`Unable to get definition for ${address}`))
 				} else if (result) {
 					const msg = `Agent already deployed with address ${address}`
-					duplicateChecks[address] = {
+					duplicateChecks[networkKey][address] = {
 						isDuplicate: true,
 						error: msg
 					}
