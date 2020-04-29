@@ -77,7 +77,7 @@ function activate (context) {
 			if (vscode.window.activeTextEditor) {
 				const uri = vscode.window.activeTextEditor.document.uri.toString()
 				const aaAddress = await client.sendRequest('get-aa-address', { uri })
-				const network = await vscode.window.showInformationMessage(`Choose a network for deployment AA with address ${aaAddress}. `, 'testnet', 'mainnet' /* 'local' */)
+				const network = await vscode.window.showInformationMessage(`Choose a network for deployment of AA with address ${aaAddress}`, 'testnet', 'mainnet' /* 'local' */)
 				if (network) {
 					client.sendRequest('deploy-aa', { uri, config: config.deployment[network] })
 				}
