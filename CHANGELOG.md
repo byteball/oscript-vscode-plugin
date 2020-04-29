@@ -1,5 +1,10 @@
 # Change Log
 
+## v0.2.9
+1. Display AA address in status bar and before deployment
+2. Added `definition[]` autocomplete to oscript
+3. aa-testkit updated to 0.2.3
+
 ## v0.2.8
 
 ### Fixes

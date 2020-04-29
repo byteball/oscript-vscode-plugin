@@ -74,10 +74,11 @@ function activate (context) {
 		client.onRequest('aa-validation-inprogress', aaValidationInProgress)
 
 		const deployCommand = vscode.commands.registerCommand('oscript.deployAa', async () => {
-			const network = await vscode.window.showInformationMessage('Choose a network for deployment', 'testnet', 'mainnet' /* 'local' */)
-			if (network) {
-				if (vscode.window.activeTextEditor) {
-					const uri = vscode.window.activeTextEditor.document.uri.toString()
+			if (vscode.window.activeTextEditor) {
+				const uri = vscode.window.activeTextEditor.document.uri.toString()
+				const aaAddress = await client.sendRequest('get-aa-address', { uri })
+				const network = await vscode.window.showInformationMessage(`Choose a network for deployment AA with address ${aaAddress}. `, 'testnet', 'mainnet' /* 'local' */)
+				if (network) {
 					client.sendRequest('deploy-aa', { uri, config: config.deployment[network] })
 				}
 			}
@@ -115,8 +116,8 @@ function activate (context) {
 	})
 }
 
-function aaValidationSuccess ({ complexity, countOps }) {
-	const text = `$(info) AA validated, complexity = ${complexity}, ops = ${countOps}`
+function aaValidationSuccess ({ complexity, countOps, aaAddress }) {
+	const text = `$(info) AA validated, complexity = ${complexity}, ops = ${countOps}, address = ${aaAddress}`
 	updateValidations(text)
 	statusBarItem.text = text
 	statusBarItem.show()
