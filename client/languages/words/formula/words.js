@@ -1480,5 +1480,23 @@ The base AA template would need to reference these parameters as params.name1 an
 It allows to inspect any unit using \`unit['UNIT_HASH']\` syntax.
 `
 		}
+	},
+	{
+		label: 'definition',
+		insertText: 'definition[]',
+		kind: vscode.CompletionItemKind.Keyword,
+		detail: 'allows to inspect the definition of address',
+		documentation: {
+			value:
+`
+Allows to inspect the definition of any address using definition['ADDRESS'] syntax
+
+	\`{
+	definition[trigger.address][0] == 'autonomous agent'
+	definition[trigger.address][1].base_aa == 'EXPECTED_BASE_AA'.
+	}\`
+
+`
+		}
 	}
 ]

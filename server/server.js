@@ -44,8 +44,9 @@ async function validateTextDocument (textDocument) {
 		const template = parsedOjson[1]
 
 		if ('messages' in template) {
+			const aaAddress = objectHash.getChash160(parsedOjson)
 			const { complexity, count_ops: countOps } = await promisify(aaValidation.validateAADefinition)(parsedOjson)
-			connection.sendRequest('aa-validation-success', { complexity, countOps })
+			connection.sendRequest('aa-validation-success', { complexity, countOps, aaAddress })
 		} else {
 			if (ValidationUtils.hasFieldsExcept(template, ['base_aa', 'params'])) {
 				throw new Error('foreign fields in parameterized AA definition')
@@ -177,8 +178,24 @@ async function handleDeployAa ({ uri, config }) {
 	}
 }
 
+async function handleGetAaAddress ({ uri }) {
+	const document = documents.get(uri)
+
+	try {
+		const parsedOjson = await validateTextDocument(document)
+		if (!parsedOjson) {
+			throw new Error('Invalid oscript')
+		}
+
+		return objectHash.getChash160(parsedOjson)
+	} catch (e) {
+		connection.window.showErrorMessage(e.message)
+	}
+}
+
 documents.listen(connection)
 connection.listen()
 
 connection.onRequest('deploy-aa', handleDeployAa)
+connection.onRequest('get-aa-address', handleGetAaAddress)
 connection.onRequest('check-duplicate', handleCheckDuplicate)
