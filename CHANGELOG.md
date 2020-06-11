@@ -1,5 +1,9 @@
 # Change Log
 
+## v0.3.0
+1. Upgrade `ocore` to v0.3.10 (and to oscript 2.0)
+2. Add Oscript 2.0 syntax highlighting
+
 ## v0.2.9
 1. Display AA address in status bar and before deployment
 2. Added `definition[]` autocomplete to oscript
