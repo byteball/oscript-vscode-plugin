@@ -8,7 +8,8 @@
 		{ "include": "#trigger" },
 		{ "include": "#strings" },
 		{ "include": "#variables" },
-		{ "include": "#numbers" }
+		{ "include": "#numbers" },
+		{ "include": "#external-aa" }
 	],
 	"repository": {
 		"keywords": {
@@ -31,7 +32,7 @@
 				},
 				{
 					"name": "entity.name.function.oscript.formula",
-					"match": "(?<!\\.)\\b(min|max|sqrt|ln|ceil|floor|round|abs|hypot|is_valid_signed_package|sha256|is_valid_sig|json_parse|json_stringify|number_from_seed|length|is_valid_address|substring|starts_with|ends_with|contains|parse_date|timestamp_to_string|typeof|is_integer|is_valid_amount|is_aa|index_of|array_length|is_array|is_assoc|to_upper|to_lower|exists)\\b"
+					"match": "(?<!\\.)\\b(min|max|sqrt|ln|ceil|floor|round|abs|hypot|is_valid_signed_package|sha256|is_valid_sig|json_parse|json_stringify|number_from_seed|length|is_valid_address|substring|starts_with|ends_with|contains|parse_date|timestamp_to_string|typeof|is_integer|is_valid_amount|is_aa|index_of|array_length|is_array|is_assoc|to_upper|to_lower|exists|delete|freeze|chash160|map|reduce|split|join|reverse|keys|replace|has_only)\\b"
 				}
 			]
 		},
@@ -40,6 +41,14 @@
 				{
 					"name": "variable.oscript.formula",
 					"match": "(?<=trigger\\.data)(\\.\\w+)+"
+				}
+			]
+		},
+		"external-aa": {
+			"patterns": [
+				{
+					"name": "keyword.oscript.formula",
+					"match": "[A-Z0-9]{32}\\."
 				}
 			]
 		},
