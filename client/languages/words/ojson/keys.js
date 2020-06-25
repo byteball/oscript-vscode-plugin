@@ -456,5 +456,52 @@ address of base parameterized Autonomous Agent
 		insertText: 'params: ',
 		kind: vscode.CompletionItemKind.Field,
 		detail: '`parameters passed to base parameterized Autonomous Agent'
+	},
+	{
+		quoted: false,
+		label: 'getters',
+		insertText: 'getters: ',
+		kind: vscode.CompletionItemKind.Field,
+		detail: 'Getters are read-only functions available to other AAs',
+		documentation: {
+			value:
+`
+Getters are meant to extract information about an AA state that is not directly available through state vars.
+
+Getters are declared in a top-level getters section which is evaluated before everything else.
+
+	['autonomous agent', {
+		getters: \`{
+			$sq = $x => $x^2;
+			$g = ($x, $y) => $x + 2*$y;
+			$h = ($x, $y) => $x||$y;
+			$r = ($acc, $x) => $x + $acc;
+		}\`,
+		init: \`{
+			// uncomment if the AA serves as library only
+			// bounce("library only");
+			...
+		}\`,
+		...
+	}]
+	
+The code in getters section can contain only function declarations and constants. Request-specific information such as trigger.data, trigger.outputs, etc is not available in getters.
+
+In the AA which declares them, getters can be accessed like normal functions.
+
+Other AAs can call them by specifying the remote AA address before the function name using this syntax:
+
+	\`{
+		$nine = MXMEKGN37H5QO2AWHT7XRG6LHJVVTAWU.$sq(3);
+	}\`
+
+or
+
+	\`{
+		$remote_aa = "MXMEKGN37H5QO2AWHT7XRG6LHJVVTAWU";
+		$nine = $remote_aa.$sq(3);
+	}\`
+`
+		}
 	}
 ]

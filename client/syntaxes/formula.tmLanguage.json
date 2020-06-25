@@ -9,7 +9,8 @@
 		{ "include": "#strings" },
 		{ "include": "#variables" },
 		{ "include": "#numbers" },
-		{ "include": "#external-aa" }
+		{ "include": "#external-aa" },
+		{ "include": "#object-keys" }
 	],
 	"repository": {
 		"keywords": {
@@ -106,6 +107,37 @@
 				{
 					"name": "constant.numeric.oscript.formula",
 					"match": "\\b\\d*\\.\\d+([eE][-+]?\\d+)?\\b"
+				}
+			]
+		},
+		"object-keys": {
+			"patterns": [
+				{
+					"begin": "{",
+					"beginCaptures": {
+						"0": { "name": "keyword.operator.oscript.formula" }
+					},
+					"end": "}",
+					"endCaptures": {
+						"0": { "name": "keyword.operator.oscript.formula" }
+					},
+					"patterns": [
+						{
+							"match": "(\\w+)\\s*(:)",
+							"captures": {
+								"1":  { "name": "variable.name.oscript.formula"}
+							}
+						},
+						{ "include": "#comments" },
+						{ "include": "#keywords" },
+						{ "include": "#operators" },
+						{ "include": "#trigger" },
+						{ "include": "#strings" },
+						{ "include": "#variables" },
+						{ "include": "#numbers" },
+						{ "include": "#external-aa" },
+						{ "include": "#object-keys" }
+					]
 				}
 			]
 		}
