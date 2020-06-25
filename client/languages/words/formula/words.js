@@ -94,6 +94,15 @@ Examples:
 	var['pending'] = false;
 	$x = var['JVUJQ7OPBJ7ZLZ57TTNFJIC3EW7AE2RY']['var_name1'];
 	}\`
+	
+State vars can store objects
+
+	\`{
+		var['s'] = {a:8, b:2};
+		var['s'] ||= {c:6};  // concat an object
+	}\`
+	
+Internally, objects are stored as json strings and their length is limited. Don't try to store a structure in a state var if this structure can grow indefinitely.
 `
 		}
 	},
@@ -787,6 +796,13 @@ Returns boolean \`true\` if the string contains searched string.
 	}\`
 
 Returns the number of characters in string.
+
+When passed an object or array, it returns the number of elements in object or array. Scalar types are converted to strings as before and the length of the string is returned.
+
+	\`{
+		length([3, 7, 9])   // 3
+	}\`
+	
 `
 		}
 	},
@@ -915,10 +931,19 @@ This function is useful for generating pseudo-random numbers from a seed string.
 			value:
 `
 	\`{
-	sha256(string)
+		sha256(string)
+		sha256(string, 'base64')
+		sha256(string, 'base32')
+		sha256(string, 'hex')
 	}\`
 
-Returns SHA-256 hash of input string in Base64 encoding. Non-string inputs are converted to strings. This function adds +1 to complexity count.
+Returns SHA-256 hash of input string in Base64 encoding (default), Base32 or Hex encoding. Non-string inputs are converted to strings. This function adds +1 to complexity count.
+
+For objects this function returns sha256 of the object's json.
+
+	\`{
+		sha256($obj)
+	}\`
 `
 		}
 	},
@@ -1496,6 +1521,282 @@ Allows to inspect the definition of any address using definition['ADDRESS'] synt
 	definition[trigger.address][1].base_aa == 'EXPECTED_BASE_AA'.
 	}\`
 
+`
+		}
+	},
+	{
+		label: 'delete',
+		insertText: 'delete',
+		kind: vscode.CompletionItemKind.Keyword,
+		detail: '`delete()` a field of an object or an element of an array',
+		documentation: {
+			value:
+`
+\`delete()\` deletes a field of an object or an element of an array
+
+	\`{
+		$obj = {a: 3, b: 7 };
+		delete($obj, 'b'); // deletes a field
+		
+		$arr = [7, 2, 's', {a: 6}];
+		delete($arr, 1); // removes element 1
+	}\`
+
+`
+		}
+	},
+	{
+		label: 'freeze',
+		insertText: 'freeze',
+		kind: vscode.CompletionItemKind.Function,
+		detail: '`freeze()` prohibits further mutations of the object or the array',
+		documentation: {
+			value:
+`
+\`freeze()\` prohibits further mutations of the object or the array
+
+	\`{
+		$obj = {a: 3, b: 7 };
+		freeze($obj); // prohibits further mutations of the object
+		
+		$arr = [7, 2, 's', {a: 6}];
+		freeze($arr); // prohibits further mutations of the array
+	}\`
+
+`
+		}
+	},
+	{
+		label: 'chash160',
+		insertText: 'chash160',
+		kind: vscode.CompletionItemKind.Function,
+		detail: '`chash160()` returns a 160-bit checksummed hash of an object',
+		documentation: {
+			value:
+`
+\`chash160()\` returns a 160-bit checksummed hash of an object
+
+	\`{
+		$definition = ['autonomous agent', {
+			...
+		}];
+		$address = chash160($definition);
+	}\`
+
+`
+		}
+	},
+	{
+		label: 'map',
+		insertText: 'map',
+		kind: vscode.CompletionItemKind.Function,
+		detail: '`map()` executes a function over each element of an array or object',
+		documentation: {
+			value:
+`
+\`map()\` executes a function over each element of an array or object
+
+The callback function for map accepts 1 or 2 arguments. If it accepts 1 argument, the value of each element is passed to it. If it accepts 2 arguments, key and value for objects or index and elememt for arrays are passed.
+
+The second argument is the maximum number of elements that an array or object can have. If it is larger, the script fails. This number must be a constant so that it can be known at deploy time, and the complexity of the entire operation is the complexity of the callback function times maximum number of elements. If the function has 0 complexity, the total complexity of map/reduce/foreach/filter is assumed to be 1 independently of the max number of elements. Max number of elements cannot exceed 100.
+
+	\`{
+		$ar = [2, 5, 9];
+		$ar2 = map($ar, 3, $x => $x^2);
+	}\`
+	
+A function is executed over each element of an array or object. The callback function can be anonymous like in the example above, or referenced by name:
+	
+	\`{
+		$f = $x => $x^2;
+		$ar = [2, 5, 9];
+		$ar2 = map($ar, 3, $f);
+	}\`
+	
+It can also be a remote getter:
+	
+	\`{
+		$ar2 = map($ar, 3, $remote_aa.$f);
+	}\`
+`
+		}
+	},
+	{
+		label: 'filter',
+		insertText: 'filter',
+		kind: vscode.CompletionItemKind.Function,
+		detail: '`filter()` creates a new array with all elements that pass the test implemented by the callback function',
+		documentation: {
+			value:
+`
+\`filter()\` creates a new array with all elements that pass the test implemented by the callback function
+
+The callback function for filter accepts 1 or 2 arguments. If it accepts 1 argument, the value of each element is passed to it. If it accepts 2 arguments, key and value for objects or index and elememt for arrays are passed.
+
+The second argument is the maximum number of elements that an array or object can have. If it is larger, the script fails. This number must be a constant so that it can be known at deploy time, and the complexity of the entire operation is the complexity of the callback function times maximum number of elements. If the function has 0 complexity, the total complexity of map/reduce/foreach/filter is assumed to be 1 independently of the max number of elements. Max number of elements cannot exceed 100.
+
+	\`{
+		$ar = [2, 5, 9];
+		$ar2 = filter($ar, 3, $x => $x > 3);
+	}\`
+	
+A function is executed over each element of an array or object. The callback function can be anonymous like in the example above, or referenced by name:
+	
+	\`{
+		$f = $x => $x > 3;
+		$ar = [2, 5, 9];
+		$ar2 = filter($ar, 3, $f);
+	}\`
+	
+It can also be a remote getter:
+	
+	\`{
+		$ar2 = filter($ar, 3, $remote_aa.$f);
+	}\`
+`
+		}
+	},
+	{
+		label: 'reduce',
+		insertText: 'reduce',
+		kind: vscode.CompletionItemKind.Function,
+		detail: '`reduce()` executes a reducer function (the callback function) on each element of the array, resulting in single output value.',
+		documentation: {
+			value:
+`
+\`reduce()\` executes a reducer function (the callback function) on each element of the array, resulting in single output value.
+
+The callback function for reduce accepts 2 or 3 arguments: accumulator and value or accumulator, key, and value (accumulator, index, and element for arrays)
+
+The second argument is the maximum number of elements that an array or object can have. If it is larger, the script fails. This number must be a constant so that it can be known at deploy time, and the complexity of the entire operation is the complexity of the callback function times maximum number of elements. If the function has 0 complexity, the total complexity of map/reduce/foreach/filter is assumed to be 1 independently of the max number of elements. Max number of elements cannot exceed 100.
+
+	\`{
+		$c = 3;
+		$ar = [2, 5, 9];
+		$acc = reduce($ar, $c, ($acc, $x) => $acc + $x, 0); // sums all elements, will return 16
+	}\`
+`
+		}
+	},
+	{
+		label: 'foreach',
+		insertText: 'foreach',
+		kind: vscode.CompletionItemKind.Function,
+		detail: '`foreach()` executes a function over each element of an array or object',
+		documentation: {
+			value:
+`
+\`foreach()\` executes a function over each element of an array or object
+
+The callback function for foreach accepts 1 or 2 arguments. If it accepts 1 argument, the value of each element is passed to it. If it accepts 2 arguments, key and value for objects or index and elememt for arrays are passed.
+
+The second argument is the maximum number of elements that an array or object can have. If it is larger, the script fails. This number must be a constant so that it can be known at deploy time, and the complexity of the entire operation is the complexity of the callback function times maximum number of elements. If the function has 0 complexity, the total complexity of map/reduce/foreach/filter is assumed to be 1 independently of the max number of elements. Max number of elements cannot exceed 100.
+
+	\`{
+		$ar = [2, 5, 9];
+		foreach($ar, 3, $x => $x^2);
+	}\`
+`
+		}
+	},
+	{
+		label: 'split',
+		insertText: 'split',
+		kind: vscode.CompletionItemKind.Function,
+		detail: '`split()` divides a string into set of substrings',
+		documentation: {
+			value:
+`
+\`split()\` divides a string into set of substrings
+
+	\`{
+		split("let-there-be-light", "-")  // ["let", "there", "be", "light"]
+		split("let-there-be-light", "-", 2)  // ["let", "there"]
+	}\`
+`
+		}
+	},
+	{
+		label: 'join',
+		insertText: 'join',
+		kind: vscode.CompletionItemKind.Function,
+		detail: '`join()` concatenates provided array into string with given separator',
+		documentation: {
+			value:
+`
+\`join()\` concatenates provided array into string with given separator
+
+	\`{
+		join(["let", "there", "be", "light"], "-")  // "let-there-be-light"
+	}\`
+	
+join can be applied to objects too, in this case the elements are sorted by key and their values are joined.
+`
+		}
+	},
+	{
+		label: 'reverse',
+		insertText: 'reverse',
+		kind: vscode.CompletionItemKind.Function,
+		detail: '`reverse()` reverses an array and returns a new one',
+		documentation: {
+			value:
+`
+\`reverse()\` reverses an array and returns a new one. Deep copies of all elements are created.
+
+Passing a non-array to this function results in error.
+
+	\`{
+		reverse([4, 8, 3])  // [3, 8, 4]
+	}\`
+`
+		}
+	},
+	{
+		label: 'keys',
+		insertText: 'keys',
+		kind: vscode.CompletionItemKind.Function,
+		detail: '`keys()` returns the keys of an object',
+		documentation: {
+			value:
+`
+\`keys()\` returns the keys of an object. The keys are sorted. Passing anything but an object results in error.
+
+	\`{
+		keys({b: 3, a: 8}) // ['a', 'b']
+	}\`
+`
+		}
+	},
+	{
+		label: 'replace',
+		insertText: 'replace',
+		kind: vscode.CompletionItemKind.Function,
+		detail: '`replace()` replaces all occurences of search_str in str with replacement and returns the new string',
+		documentation: {
+			value:
+`
+\`replace()\` replaces all occurences of search_str in str with replacement and returns the new string.
+
+	\`{
+		replace(str, search_str, replacement)
+	}\`
+`
+		}
+	},
+	{
+		label: 'has_only',
+		insertText: 'has_only',
+		kind: vscode.CompletionItemKind.Function,
+		detail: '`has_only()` checks if string contains only allowed characters',
+		documentation: {
+			value:
+`
+\`has_only()\` returns true if str consists only of characters in allowed_chars. allowed_chars is a group of characters recognized by regular expressions, examples: a-z0-9, \\w. has_only adds +1 to complexity.
+
+	\`{
+		has_only(str, allowed_chars)
+	}\`
 `
 		}
 	}

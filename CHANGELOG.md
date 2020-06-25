@@ -1,5 +1,9 @@
 # Change Log
 
+## v0.3.1 (2020-06-25)
+1. Upgrade `ocore` to v0.3.11
+2. Oscript 2.0 autocomplete and documentation
+
 ## v0.3.0
 1. Upgrade `ocore` to v0.3.10 (and to oscript 2.0)
 2. Add Oscript 2.0 syntax highlighting
