@@ -29,7 +29,7 @@ describe('Check simple AA', function () {
 
 		const aliceBalance = await this.network.wallet.alice.getBalance()
 		expect(aliceBalance.base.pending).to.be.equal(0)
-		expect(aliceBalance.base.stable).to.be.equal(989756)
+		expect(aliceBalance.base.stable).to.be.equal(989626)
 	}).timeout(60000)
 
 	it('Trigger AA', async () => {
