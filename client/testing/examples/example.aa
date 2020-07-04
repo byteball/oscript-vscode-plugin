@@ -2,13 +2,10 @@
 	bounce_fees: { base: 10000 },
 	messages: [
 		{
-			app: 'payment',
-			payload: {
-				asset: 'base',
-				outputs: [
-					{address: "{trigger.address}", amount: "{trigger.output[[asset=base]] - 1000}"}
-				]
-			}
+			app: 'state',
+			state: `{
+				response['result'] = trigger.data.a + trigger.data.b;
+			}`
 		}
 	]
 }

@@ -1,5 +1,13 @@
 # Change Log
 
+## v0.3.2 (2020-07-04)
+1. Upgrade `ocore` to v0.3.12
+2. Upgrade `aa-testkit` to v0.3.3
+3. mocha bootload updated
+
+### Fixes
+1. Fixed example agent
+
 ## v0.3.1 (2020-06-25)
 1. Upgrade `ocore` to v0.3.11
 2. Oscript 2.0 autocomplete and documentation
