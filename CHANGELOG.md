@@ -1,5 +1,9 @@
 # Change Log
 
+## v0.3.3 (2020-07-14)
+1. Upgrade `aa-testkit` to v0.3.5
+2. Test cleanup procedure
+
 ## v0.3.2 (2020-07-04)
 1. Upgrade `ocore` to v0.3.12
 2. Upgrade `aa-testkit` to v0.3.3
