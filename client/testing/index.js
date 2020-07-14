@@ -16,6 +16,7 @@ function testCurrentFile () {
 
 		const mochaRuntimePath = require.resolve('mocha/lib/cli/cli.js')
 		const mochaArgs = [
+			'--exit',
 			'--bail',
 			'--slow',
 			'20000',
