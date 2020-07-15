@@ -1,5 +1,11 @@
 # Change Log
 
+## v0.3.4 (2020-07-15)
+
+### Fixes
+1. Fix formula error highlights the whole file
+2. Wrong caret `^` position on parsing error in the error description
+
 ## v0.3.3 (2020-07-14)
 1. Upgrade `aa-testkit` to v0.3.5
 2. Test cleanup procedure
