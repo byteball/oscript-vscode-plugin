@@ -59,17 +59,28 @@ async function validateTextDocument (textDocument) {
 			}
 		}
 	} catch (e) {
+		let message
 		const error = e.message || e
 		let range
-		const match = error.match(/at line (\d+) col (\d+)/)
-		if (match) {
+		if (error.match(/at line (\d+) col (\d+)/)) {
+			const match = error.match(/at line (\d+) col (\d+)/)
+			message = error
 			range = Range.create(
 				Number(match[1]) - 1,
 				Number(match[2]) - 1,
 				Number(match[1]) - 1,
 				Number.MAX_VALUE
 			)
+		} else if (error.match(/^validation of formula ([\s\S]+) failed: ([\s\S]+)/)) {
+			const match = error.match(/^validation of formula ([\s\S]+) failed: ([\s\S]+)/)
+			message = match[2]
+			const start = text.indexOf(match[1])
+			range = Range.create(
+				textDocument.positionAt(start),
+				textDocument.positionAt(start + match[1].length)
+			)
 		} else {
+			message = error
 			range = Range.create(
 				0,
 				0,
@@ -80,7 +91,7 @@ async function validateTextDocument (textDocument) {
 
 		diagnostics.push({
 			range,
-			message: error,
+			message: message.replace(/\t/g, ' '),
 			source: 'ocore',
 			severity: DiagnosticSeverity.Error
 		})
