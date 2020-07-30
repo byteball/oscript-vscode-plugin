@@ -1,5 +1,8 @@
 # Change Log
 
+## v0.3.4 (2020-07-30)
+1. `aa-testkit` upgraded to `v.0.3.8`
+
 ## v0.3.4 (2020-07-15)
 
 ### Fixes
