@@ -16,7 +16,7 @@ module.exports = {
 
 			const insert = w.insertText || w.label
 			completion.insertText = w.quoted ? quotedAutocomplete(lineUntilPosition, insert) : insert
-			completion.documentation = get(w, 'documentation.value')
+			completion.documentation = new vscode.MarkdownString(get(w, 'documentation.value'))
 			completion.detail = w.detail
 
 			return completion
