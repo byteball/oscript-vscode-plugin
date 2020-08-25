@@ -1113,7 +1113,7 @@ The function creates a correctly structured \`signedPackage\` object which can b
 	is_valid_sig(message, public_key, signature)
 	}\`
 
-Returns \`true\` if \`signature\` is a correct ECDSA signature of \`message\` by the private key corresponding to \`public_key\`, returns \`false\` otherwise.
+Returns \`true\` if \`signature\` is a correct ECDSA or RSA signature of \`message\` by the private key corresponding to \`public_key\`, returns \`false\` otherwise.
 
 * \`message\` is a string corresponding to the message being signed, the function will hash the message with SHA-256 before verifying the signature. In case \`message\` is not a string, the formula will fail.
 * \`public_key\` is a string containing the public key in a PEM format. For example:
