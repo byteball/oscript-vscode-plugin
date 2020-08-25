@@ -1102,6 +1102,76 @@ The function creates a correctly structured \`signedPackage\` object which can b
 		}
 	},
 	{
+		label: 'is_valid_sig',
+		insertText: 'is_valid_sig',
+		kind: vscode.CompletionItemKind.Function,
+		detail: '`is_valid_sig` built-in',
+		documentation: {
+			value:
+`
+	\`{
+	is_valid_sig(message, public_key, signature)
+	}\`
+
+Returns \`true\` if \`signature\` is a correct ECDSA signature of \`message\` by the private key corresponding to \`public_key\`, returns \`false\` otherwise.
+
+* \`message\` is a string corresponding to the message being signed, the function will hash the message with SHA-256 before verifying the signature. In case \`message\` is not a string, the formula will fail.
+* \`public_key\` is a string containing the public key in a PEM format. For example:
+
+\`\`\`text
+-----BEGIN PUBLIC KEY-----
+MEowFAYHKoZIzj0CAQYJKyQDAwIIAQEEAzIABG7FrdP/Kqv8MZ4A097cEz0VuG1P\\n\\ebtdiWNfmIvnMC3quUpg3XQal7okD8HuqcuQCg==
+-----END PUBLIC KEY-----
+\`\`\`
+
+\`-----BEGIN PUBLIC KEY-----\` and \`-----END PUBLIC KEY-----\` can be omitted, spaces or carriage returns will be ignored. If \`public_key\` is not a string, is not for a supported curve, or doesn't have the required length then the formula will fail.
+
+* \`signature\` is a string containing the signature in Base64 or hexadecimal format. In case  signature is not a string or is not Base64 nor hexadecimal format, the formula will fail.
+
+Supported algorithms:
+
+ECDSA
+
+\`brainpoolP160r1, brainpoolP160t1, brainpoolP192r1, brainpoolP192t1, brainpoolP224r1, brainpoolP224t1, brainpoolP256r1, brainpoolP256t1, prime192v1, prime192v2, prime192v3, prime239v1, prime239v2, prime239v3, prime256v1, secp112r1, secp112r2, secp128r1, secp128r2, secp160k1, secp160r1, secp160r2, secp192k1, secp224k1, secp224r1, secp256k1, secp384r1, sect113r1, sect113r2, sect131r1, sect131r2, wap-wsg-idm-ecid-wtls1, wap-wsg-idm-ecid-wtls4, wap-wsg-idm-ecid-wtls6, wap-wsg-idm-ecid-wtls7, wap-wsg-idm-ecid-wtls8, wap-wsg-idm-ecid-wtls9\`
+
+RSA
+
+\`PKCS #1 - 512 to 4096 bits\`
+`
+		}
+	},
+	{
+		label: 'vrf_verify',
+		insertText: 'vrf_verify',
+		kind: vscode.CompletionItemKind.Function,
+		detail: '`vrf_verify` built-in',
+		documentation: {
+			value:
+`
+	\`{
+	vrf_verify(seed, proof, pubkey)
+	}\`
+
+Returns \`true\` if \`proof\` is valid, return false otherwise.
+
+* \`seed\` is a string from which is derived a proof unique for this RSA key. The formula will fail in case \`seed\` is not a string or is empty.
+* \`proof\` is an hexadecimal string value from 128 to 1024 characters (depending of RSA key size). Can be used with \`number_from_seed\` to obtain a verifiable random number.
+* \`pubkey\` is a string containing the RSA public key in a PEM spki format. For example:
+
+\`\`\`text
+-----BEGIN PUBLIC KEY-----
+MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBANOJ1Y6/6uzcHDa7Q1gLO9z0KGOM51sO
+Pc2nfBF4RTobSVVpFnWtZF92r8iWCebwgSRSS9dEX6YIMIWNg11LbQ8CAwEAAQ==
+-----END PUBLIC KEY-----
+\`\`\`
+
+\`-----BEGIN PUBLIC KEY-----\` and \`-----END PUBLIC KEY-----\` can be omitted, spaces or carriage returns will be ignored. If \`public_key\` is not a string, is not for a supported curve, or doesn't have the required length then the formula will fail.
+
+Supported algorithm: \`RSAPKCS #1 - 512 to 4096 bits\`
+`
+		}
+	},
+	{
 		label: 'bounce',
 		insertText: 'bounce',
 		kind: vscode.CompletionItemKind.Function,
