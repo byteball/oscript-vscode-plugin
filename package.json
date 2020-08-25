@@ -4,7 +4,7 @@
 	"description": "Oscript support for writing Autonomous Agents in VS Code",
 	"author": "Obyte",
 	"license": "MIT",
-	"version": "0.3.5",
+	"version": "0.3.6",
 	"icon": "images/icon.png",
 	"repository": {
 		"type": "git",

@@ -1,6 +1,12 @@
 # Change Log
 
-## v0.3.4 (2020-07-30)
+## v0.3.6 (2020-08-25)
+1. `aa-testkit` upgraded to `v.0.3.9`
+2. `is_valid_sig` built-in oscript docs 
+3. `vrf_verify` built-in oscript docs 
+4. Fix code suggestion docs formatting
+
+## v0.3.5 (2020-07-30)
 1. `aa-testkit` upgraded to `v.0.3.8`
 
 ## v0.3.4 (2020-07-15)
