@@ -13,6 +13,7 @@ const aaValidation = require('ocore/aa_validation')
 const parseOjson = require('ocore/formula/parse_ojson')
 const objectHash = require('ocore/object_hash')
 const open = require('open')
+const { inspectRules } = require('./rules')
 
 const duplicateChecks = {
 	mainnet: {},
@@ -32,6 +33,14 @@ documents.onDidOpen(change => {
 	validateTextDocument(change.document)
 })
 
+function inspectTextDocumentRules (textDocument) {
+	const text = textDocument.getText()
+	const rawParsed = parseOjson.parseOjsonGrammar(text)
+
+	const checks = inspectRules(rawParsed.results[0])
+	return checks.map(c => c.toDiagnostic(textDocument))
+}
+
 async function validateTextDocument (textDocument) {
 	connection.sendRequest('aa-validation-inprogress')
 
@@ -46,6 +55,8 @@ async function validateTextDocument (textDocument) {
 		if ('messages' in template) {
 			const aaAddress = objectHash.getChash160(parsedOjson)
 			const { complexity, count_ops: countOps } = await promisify(aaValidation.validateAADefinition)(parsedOjson)
+			const warnings = inspectTextDocumentRules(textDocument)
+			diagnostics = [...diagnostics, ...warnings]
 			connection.sendRequest('aa-validation-success', { complexity, countOps, aaAddress })
 		} else {
 			if (ValidationUtils.hasFieldsExcept(template, ['base_aa', 'params'])) {
