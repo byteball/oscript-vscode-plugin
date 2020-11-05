@@ -1,13 +1,16 @@
 # Change Log
 
+## v0.3.8 (2020-11-05)
+1. fixed uninitialized local var error highlight position
+
 ## v0.3.7 (2020-10-06)
 1. `aa-testkit` upgraded to `v.0.3.12`
 2. Added warning check for concat operator in `if`  in formula
 
 ## v0.3.6 (2020-08-25)
 1. `aa-testkit` upgraded to `v.0.3.9`
-2. `is_valid_sig` built-in oscript docs 
-3. `vrf_verify` built-in oscript docs 
+2. `is_valid_sig` built-in oscript docs
+3. `vrf_verify` built-in oscript docs
 4. Fix code suggestion docs formatting
 
 ## v0.3.5 (2020-07-30)
