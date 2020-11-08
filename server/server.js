@@ -86,10 +86,13 @@ async function validateTextDocument (textDocument) {
 			const match = error.match(/^validation of formula ([\s\S]+) failed: ([\s\S]+)/)
 			message = match[2]
 			if (message.indexOf('uninitialized local var') !== -1) {
-				const start = text.search(new RegExp(match[1].replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b'))
+				const varMatch = message.match(/uninitialized local var (\w+)$/)
+				const variable = varMatch[1]
+				const start = text.indexOf(match[1])
+				const varPosition = match[1].search(new RegExp('\\$' + variable + '\\b'))
 				range = Range.create(
-					textDocument.positionAt(start),
-					textDocument.positionAt(start + match[1].length)
+					textDocument.positionAt(start + varPosition),
+					textDocument.positionAt(start + varPosition + variable.length + 1)
 				)
 			} else {
 				const start = text.indexOf(match[1])
