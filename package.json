@@ -93,7 +93,7 @@
 	},
 	"dependencies": {
 		"aa-testkit": "git+https://github.com/valyakin/aa-testkit.git",
-		"axios": "^0.19.2",
+		"axios": "^0.21.1",
 		"chai": "^4.2.0",
 		"chokidar": "^3.3.1",
 		"deep-equal-in-any-order": "^1.0.27",
