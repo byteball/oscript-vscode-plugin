@@ -21,19 +21,19 @@
 				},
 				{
 					"name": "keyword.control.oscript.formula",
-					"match": "\\b(if|else|return|bounce)\\b"
+					"match": "\\b(if|else|return|bounce|require)\\b"
 				},
 				{
 					"name": "keyword.oscript.formula",
-					"match": "\\b(params|trigger\\.data|trigger\\.output|trigger\\.address|trigger\\.unit|trigger\\.initial_address)\\b"
+					"match": "\\b(params|trigger\\.data|trigger\\.outputs|trigger\\.output|trigger\\.address|trigger\\.unit|trigger\\.initial_address|trigger\\.initial_unit)\\b"
 				},
 				{
 					"name": "keyword.oscript.formula",
-					"match": "(?<!\\.)\\b(var|response|response_unit|timestamp|mci|mc_unit|this_address|base|data_feed|in_data_feed|attestation|balance|address|amount|asset|attestors|ifseveral|ifnone|type|oracles|feed_name|min_mci|feed_value|what|pi|e|storage_size|unit|number_of_responses|definition)\\b"
+					"match": "(?<!\\.)\\b(var|response|response_unit|timestamp|mci|mc_unit|this_address|base|data_feed|in_data_feed|attestation|balance|address|amount|asset|attestors|ifseveral|ifnone|type|oracles|feed_name|min_mci|feed_value|what|pi|e|storage_size|unit|number_of_responses|previous_aa_responses|definition)\\b"
 				},
 				{
 					"name": "entity.name.function.oscript.formula",
-					"match": "(?<!\\.)\\b(min|max|sqrt|ln|ceil|floor|round|abs|hypot|is_valid_signed_package|sha256|is_valid_sig|vrf_verify|json_parse|json_stringify|number_from_seed|length|is_valid_address|substring|starts_with|ends_with|contains|parse_date|timestamp_to_string|typeof|is_integer|is_valid_amount|is_aa|index_of|array_length|is_array|is_assoc|to_upper|to_lower|exists|delete|freeze|chash160|map|reduce|split|join|reverse|keys|replace|has_only|foreach|filter)\\b"
+					"match": "(?<!\\.)\\b(min|max|sqrt|ln|ceil|floor|round|abs|hypot|is_valid_signed_package|sha256|is_valid_sig|vrf_verify|json_parse|json_stringify|number_from_seed|length|is_valid_address|substring|starts_with|ends_with|contains|parse_date|timestamp_to_string|typeof|is_integer|is_valid_amount|is_aa|index_of|array_length|is_array|is_assoc|to_upper|to_lower|exists|delete|freeze|chash160|map|reduce|split|join|reverse|keys|replace|has_only|foreach|filter|log)\\b"
 				}
 			]
 		},

@@ -1,5 +1,8 @@
 # Change Log
 
+## v0.3.9 (2021-09-09)
+1. Oscript syntax updates: `require()`, `log()`, `previous_aa_responses`, `trigger.outputs`, `trigger.initial_unit`, and calling getters from remote AAs identified by a variable.
+
 ## v0.3.8 (2020-11-05)
 1. fixed uninitialized local var error highlight position
 
