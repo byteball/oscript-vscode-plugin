@@ -73,7 +73,7 @@ module.exports = {
 		return hints.length > 0
 			? {
 				range: new vscode.Range(position.line, range.start.character, position.line, range.end.character),
-				contents: hints.map(h => h.documentation)
+				contents: hints.map(h => new vscode.MarkdownString(get(h, 'documentation.value')))
 			}
 			: null
 	}
