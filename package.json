@@ -89,7 +89,8 @@
 	"scripts": {
 		"publish": "vsce publish --yarn",
 		"package": "vsce package --yarn",
-		"postinstall": "cd client && yarn && cd ../server && yarn && cd .."
+		"postinstall": "cd client && yarn && cd ../server && yarn && cd ..",
+		"cleannm": "rm -rf node_modules && cd client && rm -rf node_modules && cd ../server && rm -rf node_modules && cd .."
 	},
 	"dependencies": {
 		"aa-testkit": "git+https://github.com/valyakin/aa-testkit.git",
