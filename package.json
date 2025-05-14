@@ -119,9 +119,7 @@
 		"webpack": "^4.42.1",
 		"webpack-cli": "^3.3.11"
 	},
-	"resolutions": {
-		"level-rocksdb": "^4.0.0"
-	},
+	"resolutions": {},
 	"__metadata": {
 		"id": "a753315b-a289-4201-9623-5bbcbccc2be0",
 		"publisherDisplayName": "Obyte",
