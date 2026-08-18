@@ -56,7 +56,7 @@ async function validateTextDocument (textDocument) {
 
 		if ('messages' in template) {
 			const aaAddress = objectHash.getChash160(parsedOjson)
-			const { complexity, count_ops: countOps } = await promisify(aaValidation.validateAADefinition)(parsedOjson)
+			const { complexity, count_ops: countOps } = await validateAADefinitionWithDetails(parsedOjson)
 			const warnings = inspectTextDocumentRules(textDocument, rawParsed)
 			diagnostics = [...diagnostics, ...warnings]
 			connection.sendRequest('aa-validation-success', { complexity, countOps, aaAddress })
@@ -73,7 +73,7 @@ async function validateTextDocument (textDocument) {
 		}
 	} catch (e) {
 		const error = e.message || e
-		diagnostics.push(buildErrorDiagnostic(textDocument, error, rawParsed))
+		diagnostics.push(buildErrorDiagnostic(textDocument, error, rawParsed, e.validationDetails))
 		connection.sendRequest('aa-validation-error', { error })
 	}
 
@@ -81,14 +81,26 @@ async function validateTextDocument (textDocument) {
 	return parsedOjson
 }
 
-function buildErrorDiagnostic (textDocument, error, rawParsed) {
+function validateAADefinitionWithDetails (parsedOjson) {
+	return new Promise((resolve, reject) => {
+		aaValidation.validateAADefinition(parsedOjson, (error, result) => {
+			if (!error) return resolve(result)
+
+			const validationError = new Error(error)
+			validationError.validationDetails = result
+			reject(validationError)
+		})
+	})
+}
+
+function buildErrorDiagnostic (textDocument, error, rawParsed, validationDetails) {
 	const formulaMatch = error.match(/^validation of formula ([\s\S]+) failed: ([\s\S]+)/)
 	let message
 	let range
 
 	if (formulaMatch) {
 		message = formulaMatch[2]
-		range = rangeForFormula(textDocument, formulaMatch[1], message, rawParsed)
+		range = rangeForFormula(textDocument, formulaMatch[1], message, rawParsed, validationDetails)
 	} else if (error.match(/at line (\d+) col (\d+)/)) {
 		const match = error.match(/at line (\d+) col (\d+)/)
 		message = error
@@ -116,12 +128,24 @@ function buildErrorDiagnostic (textDocument, error, rawParsed) {
 	}
 }
 
-function rangeForFormula (textDocument, formula, message, rawParsed) {
+function rangeForFormula (textDocument, formula, message, rawParsed, validationDetails) {
 	const locations = collectFormulaLocations(rawParsed)
 		.filter(location => location.value === formula)
 	const location = selectFormulaLocation(locations, message)
 
 	if (location) {
+		const errorLocation = validationDetails && validationDetails.formula === formula
+			? validationDetails.error_location
+			: null
+		if (errorLocation && Number.isInteger(errorLocation.offset)) {
+			const start = location.context.offset + errorLocation.offset
+			const length = Number.isInteger(errorLocation.length) ? errorLocation.length : 1
+			return Range.create(
+				textDocument.positionAt(start),
+				textDocument.positionAt(start + length)
+			)
+		}
+
 		const variable = getUninitializedVariable(message)
 		if (variable) {
 			const varPosition = formula.search(new RegExp('\\$' + variable + '\\b'))
